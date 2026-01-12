@@ -25,17 +25,17 @@ model User {
   /// 是否超级管理员
   isSuper         Boolean  @default(false) @map("is_super")
   /// 最后登录时间
-  lastLoginAt     DateTime? @map("last_login_at")
+  lastLoginAt     DateTime? @db.Timestamp(3) @map("last_login_at")
   /// 创建时间
-  createdAt       DateTime @default(now()) @map("created_at")
+  createdAt       DateTime @db.Timestamp(3) @default(now()) @map("created_at")
   /// 更新时间
-  updatedAt       DateTime @updatedAt @map("updated_at")
+  updatedAt       DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
   /// 创建人
   createdBy       Int? @map("created_by")
   /// 更新人
   updatedBy       Int? @map("updated_by")
   /// 删除时间(软删除)
-  deletedAt       DateTime? @map("deleted_at")
+  deletedAt       DateTime? @db.Timestamp(3) @map("deleted_at")
   /// 删除人
   deletedBy       Int? @map("deleted_by")
 
@@ -65,15 +65,15 @@ model Role {
   /// 是否启用
   isActive    Boolean  @default(true) @map("is_active")
   /// 创建时间
-  createdAt   DateTime @default(now()) @map("created_at")
+  createdAt   DateTime @db.Timestamp(3) @default(now()) @map("created_at")
   /// 更新时间
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  updatedAt   DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
   /// 创建人
   createdBy   Int? @map("created_by")
   /// 更新人
   updatedBy   Int? @map("updated_by")
   /// 删除时间(软删除)
-  deletedAt   DateTime? @map("deleted_at")
+  deletedAt   DateTime? @db.Timestamp(3) @map("deleted_at")
   /// 删除人
   deletedBy   Int? @map("deleted_by")
 
@@ -97,15 +97,15 @@ model Permission {
   /// 权限描述
   description String?
   /// 创建时间
-  createdAt   DateTime @default(now()) @map("created_at")
+  createdAt   DateTime @db.Timestamp(3) @default(now()) @map("created_at")
   /// 更新时间
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  updatedAt   DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
   /// 创建人
   createdBy   Int? @map("created_by")
   /// 更新人
   updatedBy   Int? @map("updated_by")
   /// 删除时间(软删除)
-  deletedAt   DateTime? @map("deleted_at")
+  deletedAt   DateTime? @db.Timestamp(3) @map("deleted_at")
   /// 删除人
   deletedBy   Int? @map("deleted_by")
 
@@ -127,7 +127,7 @@ model UserRole {
   /// 角色ID
   roleId    Int @map("role_id")
   /// 创建时间
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @db.Timestamp(3) @default(now()) @map("created_at")
   /// 创建人
   createdBy Int? @map("created_by")
 
@@ -149,7 +149,7 @@ model RolePermission {
   /// 权限ID
   permissionId Int @map("permission_id")
   /// 创建时间
-  createdAt    DateTime @default(now()) @map("created_at")
+  createdAt    DateTime @db.Timestamp(3) @default(now()) @map("created_at")
   /// 创建人
   createdBy    Int? @map("created_by")
 
@@ -187,15 +187,15 @@ model Menu {
   /// 权限ID
   permissionId Int? @map("permission_id")
   /// 创建时间
-  createdAt    DateTime @default(now()) @map("created_at")
+  createdAt    DateTime @db.Timestamp(3) @default(now()) @map("created_at")
   /// 更新时间
-  updatedAt    DateTime @updatedAt @map("updated_at")
+  updatedAt    DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
   /// 创建人
   createdBy    Int? @map("created_by")
   /// 更新人
   updatedBy    Int? @map("updated_by")
   /// 删除时间(软删除)
-  deletedAt    DateTime? @map("deleted_at")
+  deletedAt    DateTime? @db.Timestamp(3) @map("deleted_at")
   /// 删除人
   deletedBy    Int? @map("deleted_by")
 
@@ -229,15 +229,15 @@ model FileAsset {
   /// 文件大小(字节)
   size         Int
   /// 创建时间
-  createdAt    DateTime @default(now()) @map("created_at")
+  createdAt    DateTime @db.Timestamp(3) @default(now()) @map("created_at")
   /// 更新时间
-  updatedAt    DateTime @updatedAt @map("updated_at")
+  updatedAt    DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
   /// 创建人
   createdBy    Int? @map("created_by")
   /// 更新人
   updatedBy    Int? @map("updated_by")
   /// 删除时间(软删除)
-  deletedAt    DateTime? @map("deleted_at")
+  deletedAt    DateTime? @db.Timestamp(3) @map("deleted_at")
   /// 删除人
   deletedBy    Int? @map("deleted_by")
 
@@ -259,15 +259,15 @@ model SystemConfig {
   /// 是否前端可见
   isPublic    Boolean  @default(false) @map("is_public")
   /// 创建时间
-  createdAt   DateTime @default(now()) @map("created_at")
+  createdAt   DateTime @db.Timestamp(3) @default(now()) @map("created_at")
   /// 更新时间
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  updatedAt   DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
   /// 创建人
   createdBy   Int? @map("created_by")
   /// 更新人
   updatedBy   Int? @map("updated_by")
   /// 删除时间(软删除)
-  deletedAt   DateTime? @map("deleted_at")
+  deletedAt   DateTime? @db.Timestamp(3) @map("deleted_at")
   /// 删除人
   deletedBy   Int? @map("deleted_by")
   @@map("system_config")
@@ -288,13 +288,13 @@ model Session {
   /// User-Agent
   userAgent        String? @map("user_agent")
   /// 签发时间
-  issuedAt         DateTime  @default(now()) @map("issued_at")
+  issuedAt         DateTime @db.Timestamp(3)  @default(now()) @map("issued_at")
   /// 过期时间
-  expiresAt        DateTime @map("expires_at")
+  expiresAt        DateTime @db.Timestamp(3) @map("expires_at")
   /// 撤销时间
-  revokedAt        DateTime? @map("revoked_at")
+  revokedAt        DateTime? @db.Timestamp(3) @map("revoked_at")
   /// 创建时间
-  createdAt        DateTime  @default(now()) @map("created_at")
+  createdAt        DateTime @db.Timestamp(3)  @default(now()) @map("created_at")
 
   /// 用户
   user User @relation(fields: [userId], references: [id])
@@ -314,17 +314,17 @@ model TerminalSession {
   /// 是否激活
   isActive  Boolean  @default(true) @map("is_active")
   /// 最后活跃时间
-  lastActiveAt DateTime? @map("last_active_at")
+  lastActiveAt DateTime? @db.Timestamp(3) @map("last_active_at")
   /// 创建时间
-  createdAt DateTime @default(now()) @map("created_at")
+  createdAt DateTime @db.Timestamp(3) @default(now()) @map("created_at")
   /// 更新时间
-  updatedAt DateTime @updatedAt @map("updated_at")
+  updatedAt DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
   /// 创建人
   createdBy Int? @map("created_by")
   /// 更新人
   updatedBy Int? @map("updated_by")
   /// 删除时间(软删除)
-  deletedAt DateTime? @map("deleted_at")
+  deletedAt DateTime? @db.Timestamp(3) @map("deleted_at")
   /// 删除人
   deletedBy Int? @map("deleted_by")
 
@@ -354,7 +354,7 @@ model OperationLog {
   /// User-Agent
   userAgent  String? @map("user_agent")
   /// 创建时间
-  createdAt  DateTime @default(now()) @map("created_at")
+  createdAt  DateTime @db.Timestamp(3) @default(now()) @map("created_at")
 
   /// 用户
   user User? @relation(fields: [userId], references: [id])
