@@ -1,0 +1,21 @@
+{
+  "name": "control-panel-backend",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "bun --watch src/index.ts",
+    "start": "bun src/index.ts",
+    "test": "bun test"
+  },
+  "dependencies": {
+    "@prisma/client": "7.2.0",
+    "elysia": "^1.1.12"
+  },
+  "devDependencies": {
+    "@types/node": "^25.0.6",
+    "dotenv": "^17.2.3",
+    "prisma": "7.2.0",
+    "typescript": "^5.7.2"
+  }
+}

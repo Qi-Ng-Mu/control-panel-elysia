@@ -1,0 +1,25 @@
+# Node/Bun
+node_modules
+bun.lockb
+
+# Builds
+/dist
+/.vite
+
+# Env
+.env
+.env.local
+.env.*.local
+
+# OS/Editor
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Coverage
+coverage
+
+# Prisma
+backend/prisma/dev.db

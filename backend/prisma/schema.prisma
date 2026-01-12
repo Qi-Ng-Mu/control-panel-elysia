@@ -1,0 +1,362 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+/// 用户表
+model User {
+  /// 用户ID
+  id              Int      @id @default(autoincrement())
+  /// 用户名
+  username        String   @db.VarChar(191)
+  /// 邮箱
+  email           String?  @unique
+  /// 密码哈希
+  passwordHash    String @map("password_hash")
+  /// 显示名称
+  displayName     String? @map("display_name")
+  /// 头像文件ID
+  avatarFileId    Int? @map("avatar_file_id")
+  /// 是否启用
+  isActive        Boolean  @default(true) @map("is_active")
+  /// 是否超级管理员
+  isSuper         Boolean  @default(false) @map("is_super")
+  /// 最后登录时间
+  lastLoginAt     DateTime? @map("last_login_at")
+  /// 创建时间
+  createdAt       DateTime @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt       DateTime @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy       Int? @map("created_by")
+  /// 更新人
+  updatedBy       Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt       DateTime? @map("deleted_at")
+  /// 删除人
+  deletedBy       Int? @map("deleted_by")
+
+  /// 用户角色关联
+  roles           UserRole[]
+  /// 登录会话
+  sessions        Session[]
+  /// 操作日志
+  operationLogs   OperationLog[]
+  /// 终端会话
+  terminalSessions TerminalSession[]
+  /// 头像文件
+  avatarFile      FileAsset? @relation(fields: [avatarFileId], references: [id])
+  @@map("user")
+}
+
+/// 角色表
+model Role {
+  /// 角色ID
+  id          Int      @id @default(autoincrement())
+  /// 角色名称
+  name        String
+  /// 角色编码
+  code        String   @unique
+  /// 角色描述
+  description String?
+  /// 是否启用
+  isActive    Boolean  @default(true) @map("is_active")
+  /// 创建时间
+  createdAt   DateTime @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy   Int? @map("created_by")
+  /// 更新人
+  updatedBy   Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt   DateTime? @map("deleted_at")
+  /// 删除人
+  deletedBy   Int? @map("deleted_by")
+
+  /// 用户角色关联
+  users       UserRole[]
+  /// 角色权限关联
+  permissions RolePermission[]
+
+  @@unique([name])
+  @@map("role")
+}
+
+/// 权限表
+model Permission {
+  /// 权限ID
+  id          Int      @id @default(autoincrement())
+  /// 权限名称
+  name        String
+  /// 权限编码
+  code        String   @unique
+  /// 权限描述
+  description String?
+  /// 创建时间
+  createdAt   DateTime @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy   Int? @map("created_by")
+  /// 更新人
+  updatedBy   Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt   DateTime? @map("deleted_at")
+  /// 删除人
+  deletedBy   Int? @map("deleted_by")
+
+  /// 角色权限关联
+  roles RolePermission[]
+  /// 菜单关联
+  menus Menu[]
+
+  @@unique([name])
+  @@map("permission")
+}
+
+/// 用户-角色关联表
+model UserRole {
+  /// 关联ID
+  id        Int      @id @default(autoincrement())
+  /// 用户ID
+  userId    Int @map("user_id")
+  /// 角色ID
+  roleId    Int @map("role_id")
+  /// 创建时间
+  createdAt DateTime @default(now()) @map("created_at")
+  /// 创建人
+  createdBy Int? @map("created_by")
+
+  /// 用户
+  user User @relation(fields: [userId], references: [id])
+  /// 角色
+  role Role @relation(fields: [roleId], references: [id])
+
+  @@unique([userId, roleId])
+  @@map("user_role")
+}
+
+/// 角色-权限关联表
+model RolePermission {
+  /// 关联ID
+  id           Int      @id @default(autoincrement())
+  /// 角色ID
+  roleId       Int @map("role_id")
+  /// 权限ID
+  permissionId Int @map("permission_id")
+  /// 创建时间
+  createdAt    DateTime @default(now()) @map("created_at")
+  /// 创建人
+  createdBy    Int? @map("created_by")
+
+  /// 角色
+  role       Role       @relation(fields: [roleId], references: [id])
+  /// 权限
+  permission Permission @relation(fields: [permissionId], references: [id])
+
+  @@unique([roleId, permissionId])
+  @@map("role_permission")
+}
+
+/// 菜单表
+model Menu {
+  /// 菜单ID
+  id           Int      @id @default(autoincrement())
+  /// 菜单名称
+  name         String
+  /// 路由路径
+  path         String
+  /// 前端组件
+  component    String
+  /// 菜单图标
+  icon         String?
+  /// 排序
+  order        Int      @default(0)
+  /// 是否隐藏
+  isHidden     Boolean  @default(false) @map("is_hidden")
+  /// 是否启用
+  isActive     Boolean  @default(true) @map("is_active")
+  /// 是否目录
+  isDirectory  Boolean  @default(false) @map("is_directory")
+  /// 父级菜单ID
+  parentId     Int? @map("parent_id")
+  /// 权限ID
+  permissionId Int? @map("permission_id")
+  /// 创建时间
+  createdAt    DateTime @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy    Int? @map("created_by")
+  /// 更新人
+  updatedBy    Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt    DateTime? @map("deleted_at")
+  /// 删除人
+  deletedBy    Int? @map("deleted_by")
+
+  /// 父菜单
+  parent      Menu?       @relation("MenuToParent", fields: [parentId], references: [id])
+  /// 子菜单
+  children    Menu[]      @relation("MenuToParent")
+  /// 权限
+  permission  Permission? @relation(fields: [permissionId], references: [id])
+
+  @@unique([path])
+  @@index([parentId])
+  @@index([permissionId])
+  @@map("menu")
+}
+
+/// 文件表
+model FileAsset {
+  /// 文件ID
+  id           Int      @id @default(autoincrement())
+  /// 存储类型(local/oss)
+  storageType  String @map("storage_type")
+  /// 原始文件名
+  originalName String @map("original_name")
+  /// 文件类型
+  mimeType     String @map("mime_type")
+  /// 文件哈希
+  hash         String   @unique
+  /// 文件路径
+  path         String
+  /// 文件大小(字节)
+  size         Int
+  /// 创建时间
+  createdAt    DateTime @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt    DateTime @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy    Int? @map("created_by")
+  /// 更新人
+  updatedBy    Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt    DateTime? @map("deleted_at")
+  /// 删除人
+  deletedBy    Int? @map("deleted_by")
+
+  /// 关联用户(头像)
+  users User[]
+  @@map("file_asset")
+}
+
+/// 系统配置表
+model SystemConfig {
+  /// 配置ID
+  id          Int      @id @default(autoincrement())
+  /// 配置键
+  key         String   @unique
+  /// 配置值
+  value       Json
+  /// 配置说明
+  description String?
+  /// 是否前端可见
+  isPublic    Boolean  @default(false) @map("is_public")
+  /// 创建时间
+  createdAt   DateTime @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy   Int? @map("created_by")
+  /// 更新人
+  updatedBy   Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt   DateTime? @map("deleted_at")
+  /// 删除人
+  deletedBy   Int? @map("deleted_by")
+  @@map("system_config")
+}
+
+/// 登录会话表(Refresh Token)
+model Session {
+  /// 会话ID
+  id               Int       @id @default(autoincrement())
+  /// 用户ID
+  userId           Int @map("user_id")
+  /// Refresh Token 哈希
+  refreshTokenHash String? @map("refresh_token_hash")
+  /// 设备ID
+  deviceId         String? @map("device_id")
+  /// IP
+  ip               String?
+  /// User-Agent
+  userAgent        String? @map("user_agent")
+  /// 签发时间
+  issuedAt         DateTime  @default(now()) @map("issued_at")
+  /// 过期时间
+  expiresAt        DateTime @map("expires_at")
+  /// 撤销时间
+  revokedAt        DateTime? @map("revoked_at")
+  /// 创建时间
+  createdAt        DateTime  @default(now()) @map("created_at")
+
+  /// 用户
+  user User @relation(fields: [userId], references: [id])
+  @@map("session")
+}
+
+/// 终端会话表
+model TerminalSession {
+  /// 记录ID
+  id        Int      @id @default(autoincrement())
+  /// 用户ID
+  userId    Int @map("user_id")
+  /// 会话名称
+  name      String?
+  /// 终端会话ID
+  sessionId String   @unique @map("session_id")
+  /// 是否激活
+  isActive  Boolean  @default(true) @map("is_active")
+  /// 最后活跃时间
+  lastActiveAt DateTime? @map("last_active_at")
+  /// 创建时间
+  createdAt DateTime @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt DateTime @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy Int? @map("created_by")
+  /// 更新人
+  updatedBy Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt DateTime? @map("deleted_at")
+  /// 删除人
+  deletedBy Int? @map("deleted_by")
+
+  /// 用户
+  user User @relation(fields: [userId], references: [id])
+
+  @@index([userId])
+  @@map("terminal_session")
+}
+
+/// 操作日志表
+model OperationLog {
+  /// 日志ID
+  id         Int      @id @default(autoincrement())
+  /// 用户ID
+  userId     Int? @map("user_id")
+  /// 操作名称
+  action     String
+  /// 目标类型
+  targetType String? @map("target_type")
+  /// 目标ID
+  targetId   String? @map("target_id")
+  /// 操作内容
+  payload    Json?
+  /// IP
+  ip         String?
+  /// User-Agent
+  userAgent  String? @map("user_agent")
+  /// 创建时间
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  /// 用户
+  user User? @relation(fields: [userId], references: [id])
+  @@map("operation_log")
+}
