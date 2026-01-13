@@ -88,7 +88,7 @@ backend/
 
 ## 路由与校验
 
-- 路由：按 domain 分组（例如 /api/v1/users）
+- 路由：按 domain 分组（例如 /api/v1/user）
 - 请求校验：必须校验 body/query/params（避免裸用 any）
 - 响应：统一返回结构 { code, message, data }
 

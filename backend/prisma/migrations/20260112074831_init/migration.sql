@@ -7,7 +7,6 @@ CREATE TABLE `user` (
     `display_name` VARCHAR(191) NULL COMMENT '显示名称',
     `avatar_file_id` INTEGER NULL COMMENT '头像文件ID',
     `is_active` BOOLEAN NOT NULL DEFAULT true COMMENT '是否启用',
-    `is_super` BOOLEAN NOT NULL DEFAULT false COMMENT '是否超级管理员',
     `last_login_at` DATETIME(3) NULL COMMENT '最后登录时间',
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `updated_at` DATETIME(3) NOT NULL COMMENT '更新时间',
