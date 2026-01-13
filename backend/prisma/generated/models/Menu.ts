@@ -367,11 +367,12 @@ export type MenuOrderByWithRelationInput = {
 
 export type MenuWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  path?: string
+  path_deletedAt?: Prisma.MenuPathDeletedAtCompoundUniqueInput
   AND?: Prisma.MenuWhereInput | Prisma.MenuWhereInput[]
   OR?: Prisma.MenuWhereInput[]
   NOT?: Prisma.MenuWhereInput | Prisma.MenuWhereInput[]
   name?: Prisma.StringFilter<"Menu"> | string
+  path?: Prisma.StringFilter<"Menu"> | string
   component?: Prisma.StringFilter<"Menu"> | string
   icon?: Prisma.StringNullableFilter<"Menu"> | string | null
   order?: Prisma.IntFilter<"Menu"> | number
@@ -389,7 +390,7 @@ export type MenuWhereUniqueInput = Prisma.AtLeast<{
   parent?: Prisma.XOR<Prisma.MenuNullableScalarRelationFilter, Prisma.MenuWhereInput> | null
   children?: Prisma.MenuListRelationFilter
   permission?: Prisma.XOR<Prisma.PermissionNullableScalarRelationFilter, Prisma.PermissionWhereInput> | null
-}, "id" | "path">
+}, "id" | "path_deletedAt">
 
 export type MenuOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -597,6 +598,11 @@ export type MenuOrderByRelevanceInput = {
   fields: Prisma.MenuOrderByRelevanceFieldEnum | Prisma.MenuOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type MenuPathDeletedAtCompoundUniqueInput = {
+  path: string
+  deletedAt: Date | string
 }
 
 export type MenuCountOrderByAggregateInput = {

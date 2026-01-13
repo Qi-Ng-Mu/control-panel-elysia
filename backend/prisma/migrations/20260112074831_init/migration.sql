@@ -7,15 +7,16 @@ CREATE TABLE `user` (
     `display_name` VARCHAR(191) NULL COMMENT '显示名称',
     `avatar_file_id` INTEGER NULL COMMENT '头像文件ID',
     `is_active` BOOLEAN NOT NULL DEFAULT true COMMENT '是否启用',
-    `last_login_at` DATETIME(3) NULL COMMENT '最后登录时间',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
-    `updated_at` DATETIME(3) NOT NULL COMMENT '更新时间',
+    `last_login_at` TIMESTAMP(3) NULL COMMENT '最后登录时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `updated_at` TIMESTAMP(3) NOT NULL COMMENT '更新时间',
     `created_by` INTEGER NULL COMMENT '创建人',
     `updated_by` INTEGER NULL COMMENT '更新人',
-    `deleted_at` DATETIME(3) NULL COMMENT '删除时间(软删除)',
+    `deleted_at` TIMESTAMP(3) NULL COMMENT '删除时间(软删除)',
     `deleted_by` INTEGER NULL COMMENT '删除人',
 
-    UNIQUE INDEX `user_email_key`(`email`),
+    UNIQUE INDEX `user_email_deleted_at_key`(`email`, `deleted_at`),
+    UNIQUE INDEX `user_username_deleted_at_key`(`username`, `deleted_at`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT='用户表';
 
@@ -26,15 +27,15 @@ CREATE TABLE `role` (
     `code` VARCHAR(191) NOT NULL COMMENT '角色编码',
     `description` VARCHAR(191) NULL COMMENT '角色描述',
     `is_active` BOOLEAN NOT NULL DEFAULT true COMMENT '是否启用',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
-    `updated_at` DATETIME(3) NOT NULL COMMENT '更新时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `updated_at` TIMESTAMP(3) NOT NULL COMMENT '更新时间',
     `created_by` INTEGER NULL COMMENT '创建人',
     `updated_by` INTEGER NULL COMMENT '更新人',
-    `deleted_at` DATETIME(3) NULL COMMENT '删除时间(软删除)',
+    `deleted_at` TIMESTAMP(3) NULL COMMENT '删除时间(软删除)',
     `deleted_by` INTEGER NULL COMMENT '删除人',
 
-    UNIQUE INDEX `role_code_key`(`code`),
-    UNIQUE INDEX `role_name_key`(`name`),
+    UNIQUE INDEX `role_code_deleted_at_key`(`code`, `deleted_at`),
+    UNIQUE INDEX `role_name_deleted_at_key`(`name`, `deleted_at`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT='角色表';
 
@@ -44,15 +45,15 @@ CREATE TABLE `permission` (
     `name` VARCHAR(191) NOT NULL COMMENT '权限名称',
     `code` VARCHAR(191) NOT NULL COMMENT '权限编码',
     `description` VARCHAR(191) NULL COMMENT '权限描述',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
-    `updated_at` DATETIME(3) NOT NULL COMMENT '更新时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `updated_at` TIMESTAMP(3) NOT NULL COMMENT '更新时间',
     `created_by` INTEGER NULL COMMENT '创建人',
     `updated_by` INTEGER NULL COMMENT '更新人',
-    `deleted_at` DATETIME(3) NULL COMMENT '删除时间(软删除)',
+    `deleted_at` TIMESTAMP(3) NULL COMMENT '删除时间(软删除)',
     `deleted_by` INTEGER NULL COMMENT '删除人',
 
-    UNIQUE INDEX `permission_code_key`(`code`),
-    UNIQUE INDEX `permission_name_key`(`name`),
+    UNIQUE INDEX `permission_code_deleted_at_key`(`code`, `deleted_at`),
+    UNIQUE INDEX `permission_name_deleted_at_key`(`name`, `deleted_at`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT='权限表';
 
@@ -61,7 +62,7 @@ CREATE TABLE `user_role` (
     `id` INTEGER NOT NULL AUTO_INCREMENT COMMENT '关联ID',
     `user_id` INTEGER NOT NULL COMMENT '用户ID',
     `role_id` INTEGER NOT NULL COMMENT '角色ID',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `created_by` INTEGER NULL COMMENT '创建人',
 
     UNIQUE INDEX `user_role_user_id_role_id_key`(`user_id`, `role_id`),
@@ -73,7 +74,7 @@ CREATE TABLE `role_permission` (
     `id` INTEGER NOT NULL AUTO_INCREMENT COMMENT '关联ID',
     `role_id` INTEGER NOT NULL COMMENT '角色ID',
     `permission_id` INTEGER NOT NULL COMMENT '权限ID',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
     `created_by` INTEGER NULL COMMENT '创建人',
 
     UNIQUE INDEX `role_permission_role_id_permission_id_key`(`role_id`, `permission_id`),
@@ -93,16 +94,16 @@ CREATE TABLE `menu` (
     `is_directory` BOOLEAN NOT NULL DEFAULT false COMMENT '是否目录',
     `parent_id` INTEGER NULL COMMENT '父级菜单ID',
     `permission_id` INTEGER NULL COMMENT '权限ID',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
-    `updated_at` DATETIME(3) NOT NULL COMMENT '更新时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `updated_at` TIMESTAMP(3) NOT NULL COMMENT '更新时间',
     `created_by` INTEGER NULL COMMENT '创建人',
     `updated_by` INTEGER NULL COMMENT '更新人',
-    `deleted_at` DATETIME(3) NULL COMMENT '删除时间(软删除)',
+    `deleted_at` TIMESTAMP(3) NULL COMMENT '删除时间(软删除)',
     `deleted_by` INTEGER NULL COMMENT '删除人',
 
     INDEX `menu_parent_id_idx`(`parent_id`),
     INDEX `menu_permission_id_idx`(`permission_id`),
-    UNIQUE INDEX `menu_path_key`(`path`),
+    UNIQUE INDEX `menu_path_deleted_at_key`(`path`, `deleted_at`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT='菜单表';
 
@@ -115,14 +116,14 @@ CREATE TABLE `file_asset` (
     `hash` VARCHAR(191) NOT NULL COMMENT '文件哈希',
     `path` VARCHAR(191) NOT NULL COMMENT '文件路径',
     `size` INTEGER NOT NULL COMMENT '文件大小(字节)',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
-    `updated_at` DATETIME(3) NOT NULL COMMENT '更新时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `updated_at` TIMESTAMP(3) NOT NULL COMMENT '更新时间',
     `created_by` INTEGER NULL COMMENT '创建人',
     `updated_by` INTEGER NULL COMMENT '更新人',
-    `deleted_at` DATETIME(3) NULL COMMENT '删除时间(软删除)',
+    `deleted_at` TIMESTAMP(3) NULL COMMENT '删除时间(软删除)',
     `deleted_by` INTEGER NULL COMMENT '删除人',
 
-    UNIQUE INDEX `file_asset_hash_key`(`hash`),
+    UNIQUE INDEX `file_asset_hash_deleted_at_key`(`hash`, `deleted_at`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT='文件表';
 
@@ -133,14 +134,14 @@ CREATE TABLE `system_config` (
     `value` JSON NOT NULL COMMENT '配置值',
     `description` VARCHAR(191) NULL COMMENT '配置说明',
     `is_public` BOOLEAN NOT NULL DEFAULT false COMMENT '是否前端可见',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
-    `updated_at` DATETIME(3) NOT NULL COMMENT '更新时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `updated_at` TIMESTAMP(3) NOT NULL COMMENT '更新时间',
     `created_by` INTEGER NULL COMMENT '创建人',
     `updated_by` INTEGER NULL COMMENT '更新人',
-    `deleted_at` DATETIME(3) NULL COMMENT '删除时间(软删除)',
+    `deleted_at` TIMESTAMP(3) NULL COMMENT '删除时间(软删除)',
     `deleted_by` INTEGER NULL COMMENT '删除人',
 
-    UNIQUE INDEX `system_config_key_key`(`key`),
+    UNIQUE INDEX `system_config_key_deleted_at_key`(`key`, `deleted_at`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT='系统配置表';
 
@@ -152,10 +153,10 @@ CREATE TABLE `session` (
     `device_id` VARCHAR(191) NULL COMMENT '设备ID',
     `ip` VARCHAR(191) NULL COMMENT 'IP',
     `user_agent` VARCHAR(191) NULL COMMENT 'User-Agent',
-    `issued_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '签发时间',
-    `expires_at` DATETIME(3) NOT NULL COMMENT '过期时间',
-    `revoked_at` DATETIME(3) NULL COMMENT '撤销时间',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `issued_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '签发时间',
+    `expires_at` TIMESTAMP(3) NOT NULL COMMENT '过期时间',
+    `revoked_at` TIMESTAMP(3) NULL COMMENT '撤销时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT='登录会话表(Refresh Token)';
@@ -167,15 +168,15 @@ CREATE TABLE `terminal_session` (
     `name` VARCHAR(191) NULL COMMENT '会话名称',
     `session_id` VARCHAR(191) NOT NULL COMMENT '终端会话ID',
     `is_active` BOOLEAN NOT NULL DEFAULT true COMMENT '是否激活',
-    `last_active_at` DATETIME(3) NULL COMMENT '最后活跃时间',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
-    `updated_at` DATETIME(3) NOT NULL COMMENT '更新时间',
+    `last_active_at` TIMESTAMP(3) NULL COMMENT '最后活跃时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `updated_at` TIMESTAMP(3) NOT NULL COMMENT '更新时间',
     `created_by` INTEGER NULL COMMENT '创建人',
     `updated_by` INTEGER NULL COMMENT '更新人',
-    `deleted_at` DATETIME(3) NULL COMMENT '删除时间(软删除)',
+    `deleted_at` TIMESTAMP(3) NULL COMMENT '删除时间(软删除)',
     `deleted_by` INTEGER NULL COMMENT '删除人',
 
-    UNIQUE INDEX `terminal_session_session_id_key`(`session_id`),
+    UNIQUE INDEX `terminal_session_session_id_deleted_at_key`(`session_id`, `deleted_at`),
     INDEX `terminal_session_user_id_idx`(`user_id`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT='终端会话表';
@@ -190,7 +191,7 @@ CREATE TABLE `operation_log` (
     `payload` JSON NULL COMMENT '操作内容',
     `ip` VARCHAR(191) NULL COMMENT 'IP',
     `user_agent` VARCHAR(191) NULL COMMENT 'User-Agent',
-    `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
+    `created_at` TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3) COMMENT '创建时间',
 
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci COMMENT='操作日志表';

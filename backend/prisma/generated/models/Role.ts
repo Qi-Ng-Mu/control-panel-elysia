@@ -299,11 +299,13 @@ export type RoleOrderByWithRelationInput = {
 
 export type RoleWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  name?: string
-  code?: string
+  code_deletedAt?: Prisma.RoleCodeDeletedAtCompoundUniqueInput
+  name_deletedAt?: Prisma.RoleNameDeletedAtCompoundUniqueInput
   AND?: Prisma.RoleWhereInput | Prisma.RoleWhereInput[]
   OR?: Prisma.RoleWhereInput[]
   NOT?: Prisma.RoleWhereInput | Prisma.RoleWhereInput[]
+  name?: Prisma.StringFilter<"Role"> | string
+  code?: Prisma.StringFilter<"Role"> | string
   description?: Prisma.StringNullableFilter<"Role"> | string | null
   isActive?: Prisma.BoolFilter<"Role"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Role"> | Date | string
@@ -314,7 +316,7 @@ export type RoleWhereUniqueInput = Prisma.AtLeast<{
   deletedBy?: Prisma.IntNullableFilter<"Role"> | number | null
   users?: Prisma.UserRoleListRelationFilter
   permissions?: Prisma.RolePermissionListRelationFilter
-}, "id" | "code" | "name">
+}, "id" | "code_deletedAt" | "name_deletedAt">
 
 export type RoleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -459,6 +461,16 @@ export type RoleOrderByRelevanceInput = {
   fields: Prisma.RoleOrderByRelevanceFieldEnum | Prisma.RoleOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type RoleCodeDeletedAtCompoundUniqueInput = {
+  code: string
+  deletedAt: Date | string
+}
+
+export type RoleNameDeletedAtCompoundUniqueInput = {
+  name: string
+  deletedAt: Date | string
 }
 
 export type RoleCountOrderByAggregateInput = {

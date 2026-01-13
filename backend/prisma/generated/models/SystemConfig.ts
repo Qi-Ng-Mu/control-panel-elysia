@@ -291,10 +291,11 @@ export type SystemConfigOrderByWithRelationInput = {
 
 export type SystemConfigWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  key?: string
+  key_deletedAt?: Prisma.SystemConfigKeyDeletedAtCompoundUniqueInput
   AND?: Prisma.SystemConfigWhereInput | Prisma.SystemConfigWhereInput[]
   OR?: Prisma.SystemConfigWhereInput[]
   NOT?: Prisma.SystemConfigWhereInput | Prisma.SystemConfigWhereInput[]
+  key?: Prisma.StringFilter<"SystemConfig"> | string
   value?: Prisma.JsonFilter<"SystemConfig">
   description?: Prisma.StringNullableFilter<"SystemConfig"> | string | null
   isPublic?: Prisma.BoolFilter<"SystemConfig"> | boolean
@@ -304,7 +305,7 @@ export type SystemConfigWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.IntNullableFilter<"SystemConfig"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"SystemConfig"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"SystemConfig"> | number | null
-}, "id" | "key">
+}, "id" | "key_deletedAt">
 
 export type SystemConfigOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -441,6 +442,11 @@ export type SystemConfigOrderByRelevanceInput = {
   fields: Prisma.SystemConfigOrderByRelevanceFieldEnum | Prisma.SystemConfigOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type SystemConfigKeyDeletedAtCompoundUniqueInput = {
+  key: string
+  deletedAt: Date | string
 }
 
 export type SystemConfigCountOrderByAggregateInput = {

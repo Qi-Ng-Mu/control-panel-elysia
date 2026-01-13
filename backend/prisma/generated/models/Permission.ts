@@ -290,11 +290,13 @@ export type PermissionOrderByWithRelationInput = {
 
 export type PermissionWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  name?: string
-  code?: string
+  code_deletedAt?: Prisma.PermissionCodeDeletedAtCompoundUniqueInput
+  name_deletedAt?: Prisma.PermissionNameDeletedAtCompoundUniqueInput
   AND?: Prisma.PermissionWhereInput | Prisma.PermissionWhereInput[]
   OR?: Prisma.PermissionWhereInput[]
   NOT?: Prisma.PermissionWhereInput | Prisma.PermissionWhereInput[]
+  name?: Prisma.StringFilter<"Permission"> | string
+  code?: Prisma.StringFilter<"Permission"> | string
   description?: Prisma.StringNullableFilter<"Permission"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Permission"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Permission"> | Date | string
@@ -304,7 +306,7 @@ export type PermissionWhereUniqueInput = Prisma.AtLeast<{
   deletedBy?: Prisma.IntNullableFilter<"Permission"> | number | null
   roles?: Prisma.RolePermissionListRelationFilter
   menus?: Prisma.MenuListRelationFilter
-}, "id" | "code" | "name">
+}, "id" | "code_deletedAt" | "name_deletedAt">
 
 export type PermissionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -440,6 +442,16 @@ export type PermissionOrderByRelevanceInput = {
   fields: Prisma.PermissionOrderByRelevanceFieldEnum | Prisma.PermissionOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type PermissionCodeDeletedAtCompoundUniqueInput = {
+  code: string
+  deletedAt: Date | string
+}
+
+export type PermissionNameDeletedAtCompoundUniqueInput = {
+  name: string
+  deletedAt: Date | string
 }
 
 export type PermissionCountOrderByAggregateInput = {

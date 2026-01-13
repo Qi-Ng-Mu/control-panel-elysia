@@ -336,11 +336,13 @@ export type UserOrderByWithRelationInput = {
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  email?: string
+  username_deletedAt?: Prisma.UserUsernameDeletedAtCompoundUniqueInput
+  email_deletedAt?: Prisma.UserEmailDeletedAtCompoundUniqueInput
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   username?: Prisma.StringFilter<"User"> | string
+  email?: Prisma.StringNullableFilter<"User"> | string | null
   passwordHash?: Prisma.StringFilter<"User"> | string
   displayName?: Prisma.StringNullableFilter<"User"> | string | null
   avatarFileId?: Prisma.IntNullableFilter<"User"> | number | null
@@ -357,7 +359,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   operationLogs?: Prisma.OperationLogListRelationFilter
   terminalSessions?: Prisma.TerminalSessionListRelationFilter
   avatarFile?: Prisma.XOR<Prisma.FileAssetNullableScalarRelationFilter, Prisma.FileAssetWhereInput> | null
-}, "id" | "email">
+}, "id" | "username_deletedAt" | "email_deletedAt">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -536,6 +538,16 @@ export type UserOrderByRelevanceInput = {
   fields: Prisma.UserOrderByRelevanceFieldEnum | Prisma.UserOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type UserUsernameDeletedAtCompoundUniqueInput = {
+  username: string
+  deletedAt: Date | string
+}
+
+export type UserEmailDeletedAtCompoundUniqueInput = {
+  email: string
+  deletedAt: Date | string
 }
 
 export type UserCountOrderByAggregateInput = {

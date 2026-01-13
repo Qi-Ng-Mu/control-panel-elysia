@@ -310,12 +310,13 @@ export type TerminalSessionOrderByWithRelationInput = {
 
 export type TerminalSessionWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  sessionId?: string
+  sessionId_deletedAt?: Prisma.TerminalSessionSessionIdDeletedAtCompoundUniqueInput
   AND?: Prisma.TerminalSessionWhereInput | Prisma.TerminalSessionWhereInput[]
   OR?: Prisma.TerminalSessionWhereInput[]
   NOT?: Prisma.TerminalSessionWhereInput | Prisma.TerminalSessionWhereInput[]
   userId?: Prisma.IntFilter<"TerminalSession"> | number
   name?: Prisma.StringNullableFilter<"TerminalSession"> | string | null
+  sessionId?: Prisma.StringFilter<"TerminalSession"> | string
   isActive?: Prisma.BoolFilter<"TerminalSession"> | boolean
   lastActiveAt?: Prisma.DateTimeNullableFilter<"TerminalSession"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"TerminalSession"> | Date | string
@@ -325,7 +326,7 @@ export type TerminalSessionWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"TerminalSession"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"TerminalSession"> | number | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "sessionId">
+}, "id" | "sessionId_deletedAt">
 
 export type TerminalSessionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -480,6 +481,11 @@ export type TerminalSessionOrderByRelevanceInput = {
   fields: Prisma.TerminalSessionOrderByRelevanceFieldEnum | Prisma.TerminalSessionOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type TerminalSessionSessionIdDeletedAtCompoundUniqueInput = {
+  sessionId: string
+  deletedAt: Date | string
 }
 
 export type TerminalSessionCountOrderByAggregateInput = {

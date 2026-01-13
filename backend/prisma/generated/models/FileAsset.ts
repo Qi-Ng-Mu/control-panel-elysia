@@ -319,13 +319,14 @@ export type FileAssetOrderByWithRelationInput = {
 
 export type FileAssetWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  hash?: string
+  hash_deletedAt?: Prisma.FileAssetHashDeletedAtCompoundUniqueInput
   AND?: Prisma.FileAssetWhereInput | Prisma.FileAssetWhereInput[]
   OR?: Prisma.FileAssetWhereInput[]
   NOT?: Prisma.FileAssetWhereInput | Prisma.FileAssetWhereInput[]
   storageType?: Prisma.StringFilter<"FileAsset"> | string
   originalName?: Prisma.StringFilter<"FileAsset"> | string
   mimeType?: Prisma.StringFilter<"FileAsset"> | string
+  hash?: Prisma.StringFilter<"FileAsset"> | string
   path?: Prisma.StringFilter<"FileAsset"> | string
   size?: Prisma.IntFilter<"FileAsset"> | number
   createdAt?: Prisma.DateTimeFilter<"FileAsset"> | Date | string
@@ -335,7 +336,7 @@ export type FileAssetWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"FileAsset"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"FileAsset"> | number | null
   users?: Prisma.UserListRelationFilter
-}, "id" | "hash">
+}, "id" | "hash_deletedAt">
 
 export type FileAssetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -499,6 +500,11 @@ export type FileAssetOrderByRelevanceInput = {
   fields: Prisma.FileAssetOrderByRelevanceFieldEnum | Prisma.FileAssetOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
+}
+
+export type FileAssetHashDeletedAtCompoundUniqueInput = {
+  hash: string
+  deletedAt: Date | string
 }
 
 export type FileAssetCountOrderByAggregateInput = {

@@ -14,7 +14,7 @@ model User {
   /// 用户名
   username        String   @db.VarChar(191)
   /// 邮箱
-  email           String?  @unique
+  email           String?  
   /// 密码哈希
   passwordHash    String @map("password_hash")
   /// 显示名称
@@ -48,6 +48,8 @@ model User {
   terminalSessions TerminalSession[]
   /// 头像文件
   avatarFile      FileAsset? @relation(fields: [avatarFileId], references: [id])
+  @@unique([username, deletedAt])
+  @@unique([email, deletedAt])
   @@map("user")
 }
 
@@ -58,7 +60,7 @@ model Role {
   /// 角色名称
   name        String
   /// 角色编码
-  code        String   @unique
+  code        String   
   /// 角色描述
   description String?
   /// 是否启用
@@ -81,7 +83,8 @@ model Role {
   /// 角色权限关联
   permissions RolePermission[]
 
-  @@unique([name])
+  @@unique([code, deletedAt])
+  @@unique([name, deletedAt])
   @@map("role")
 }
 
@@ -92,7 +95,7 @@ model Permission {
   /// 权限名称
   name        String
   /// 权限编码
-  code        String   @unique
+  code        String   
   /// 权限描述
   description String?
   /// 创建时间
@@ -113,7 +116,8 @@ model Permission {
   /// 菜单关联
   menus Menu[]
 
-  @@unique([name])
+  @@unique([code, deletedAt])
+  @@unique([name, deletedAt])
   @@map("permission")
 }
 
@@ -205,7 +209,7 @@ model Menu {
   /// 权限
   permission  Permission? @relation(fields: [permissionId], references: [id])
 
-  @@unique([path])
+  @@unique([path, deletedAt])
   @@index([parentId])
   @@index([permissionId])
   @@map("menu")
@@ -222,7 +226,7 @@ model FileAsset {
   /// 文件类型
   mimeType     String @map("mime_type")
   /// 文件哈希
-  hash         String   @unique
+  hash         String   
   /// 文件路径
   path         String
   /// 文件大小(字节)
@@ -242,6 +246,7 @@ model FileAsset {
 
   /// 关联用户(头像)
   users User[]
+  @@unique([hash, deletedAt])
   @@map("file_asset")
 }
 
@@ -250,7 +255,7 @@ model SystemConfig {
   /// 配置ID
   id          Int      @id @default(autoincrement())
   /// 配置键
-  key         String   @unique
+  key         String   
   /// 配置值
   value       Json
   /// 配置说明
@@ -269,6 +274,7 @@ model SystemConfig {
   deletedAt   DateTime? @db.Timestamp(3) @map("deleted_at")
   /// 删除人
   deletedBy   Int? @map("deleted_by")
+  @@unique([key, deletedAt])
   @@map("system_config")
 }
 
@@ -309,7 +315,7 @@ model TerminalSession {
   /// 会话名称
   name      String?
   /// 终端会话ID
-  sessionId String   @unique @map("session_id")
+  sessionId String   @map("session_id")
   /// 是否激活
   isActive  Boolean  @default(true) @map("is_active")
   /// 最后活跃时间
@@ -330,6 +336,7 @@ model TerminalSession {
   /// 用户
   user User @relation(fields: [userId], references: [id])
 
+  @@unique([sessionId, deletedAt])
   @@index([userId])
   @@map("terminal_session")
 }
