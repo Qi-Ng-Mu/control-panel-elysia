@@ -47,6 +47,7 @@ metadata:
 - Field：camelCase
 - 必须使用 @@map / @map
 - 所有字段必须写注释
+- Prisma 版本：必须使用 7.x（禁止降级到 6.x）
 
 ---
 
