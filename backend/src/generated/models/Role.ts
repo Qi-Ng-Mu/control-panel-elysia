@@ -28,6 +28,7 @@ export type AggregateRole = {
 
 export type RoleAvgAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -35,6 +36,7 @@ export type RoleAvgAggregateOutputType = {
 
 export type RoleSumAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -42,9 +44,11 @@ export type RoleSumAggregateOutputType = {
 
 export type RoleMinAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   name: string | null
   code: string | null
   description: string | null
+  dataScopeType: string | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -56,9 +60,11 @@ export type RoleMinAggregateOutputType = {
 
 export type RoleMaxAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   name: string | null
   code: string | null
   description: string | null
+  dataScopeType: string | null
   isActive: boolean | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -70,9 +76,12 @@ export type RoleMaxAggregateOutputType = {
 
 export type RoleCountAggregateOutputType = {
   id: number
+  tenantId: number
   name: number
   code: number
   description: number
+  dataScopeType: number
+  dataScopeDepartmentIds: number
   isActive: number
   createdAt: number
   updatedAt: number
@@ -86,6 +95,7 @@ export type RoleCountAggregateOutputType = {
 
 export type RoleAvgAggregateInputType = {
   id?: true
+  tenantId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -93,6 +103,7 @@ export type RoleAvgAggregateInputType = {
 
 export type RoleSumAggregateInputType = {
   id?: true
+  tenantId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -100,9 +111,11 @@ export type RoleSumAggregateInputType = {
 
 export type RoleMinAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   code?: true
   description?: true
+  dataScopeType?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -114,9 +127,11 @@ export type RoleMinAggregateInputType = {
 
 export type RoleMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   code?: true
   description?: true
+  dataScopeType?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -128,9 +143,12 @@ export type RoleMaxAggregateInputType = {
 
 export type RoleCountAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   code?: true
   description?: true
+  dataScopeType?: true
+  dataScopeDepartmentIds?: true
   isActive?: true
   createdAt?: true
   updatedAt?: true
@@ -229,9 +247,12 @@ export type RoleGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type RoleGroupByOutputType = {
   id: number
+  tenantId: number
   name: string
   code: string
   description: string | null
+  dataScopeType: string
+  dataScopeDepartmentIds: runtime.JsonValue | null
   isActive: boolean
   createdAt: Date
   updatedAt: Date
@@ -266,9 +287,12 @@ export type RoleWhereInput = {
   OR?: Prisma.RoleWhereInput[]
   NOT?: Prisma.RoleWhereInput | Prisma.RoleWhereInput[]
   id?: Prisma.IntFilter<"Role"> | number
+  tenantId?: Prisma.IntFilter<"Role"> | number
   name?: Prisma.StringFilter<"Role"> | string
   code?: Prisma.StringFilter<"Role"> | string
   description?: Prisma.StringNullableFilter<"Role"> | string | null
+  dataScopeType?: Prisma.StringFilter<"Role"> | string
+  dataScopeDepartmentIds?: Prisma.JsonNullableFilter<"Role">
   isActive?: Prisma.BoolFilter<"Role"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Role"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Role"> | Date | string
@@ -276,15 +300,19 @@ export type RoleWhereInput = {
   updatedBy?: Prisma.IntNullableFilter<"Role"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Role"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"Role"> | number | null
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   users?: Prisma.UserRoleListRelationFilter
   permissions?: Prisma.RolePermissionListRelationFilter
 }
 
 export type RoleOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  dataScopeType?: Prisma.SortOrder
+  dataScopeDepartmentIds?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -292,6 +320,7 @@ export type RoleOrderByWithRelationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   users?: Prisma.UserRoleOrderByRelationAggregateInput
   permissions?: Prisma.RolePermissionOrderByRelationAggregateInput
   _relevance?: Prisma.RoleOrderByRelevanceInput
@@ -299,14 +328,17 @@ export type RoleOrderByWithRelationInput = {
 
 export type RoleWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  code_deletedAt?: Prisma.RoleCodeDeletedAtCompoundUniqueInput
-  name_deletedAt?: Prisma.RoleNameDeletedAtCompoundUniqueInput
+  tenantId_code_deletedAt?: Prisma.RoleTenantIdCodeDeletedAtCompoundUniqueInput
+  tenantId_name_deletedAt?: Prisma.RoleTenantIdNameDeletedAtCompoundUniqueInput
   AND?: Prisma.RoleWhereInput | Prisma.RoleWhereInput[]
   OR?: Prisma.RoleWhereInput[]
   NOT?: Prisma.RoleWhereInput | Prisma.RoleWhereInput[]
+  tenantId?: Prisma.IntFilter<"Role"> | number
   name?: Prisma.StringFilter<"Role"> | string
   code?: Prisma.StringFilter<"Role"> | string
   description?: Prisma.StringNullableFilter<"Role"> | string | null
+  dataScopeType?: Prisma.StringFilter<"Role"> | string
+  dataScopeDepartmentIds?: Prisma.JsonNullableFilter<"Role">
   isActive?: Prisma.BoolFilter<"Role"> | boolean
   createdAt?: Prisma.DateTimeFilter<"Role"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Role"> | Date | string
@@ -314,15 +346,19 @@ export type RoleWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.IntNullableFilter<"Role"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Role"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"Role"> | number | null
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   users?: Prisma.UserRoleListRelationFilter
   permissions?: Prisma.RolePermissionListRelationFilter
-}, "id" | "code_deletedAt" | "name_deletedAt">
+}, "id" | "tenantId_code_deletedAt" | "tenantId_name_deletedAt">
 
 export type RoleOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  dataScopeType?: Prisma.SortOrder
+  dataScopeDepartmentIds?: Prisma.SortOrderInput | Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -342,9 +378,12 @@ export type RoleScalarWhereWithAggregatesInput = {
   OR?: Prisma.RoleScalarWhereWithAggregatesInput[]
   NOT?: Prisma.RoleScalarWhereWithAggregatesInput | Prisma.RoleScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Role"> | number
+  tenantId?: Prisma.IntWithAggregatesFilter<"Role"> | number
   name?: Prisma.StringWithAggregatesFilter<"Role"> | string
   code?: Prisma.StringWithAggregatesFilter<"Role"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"Role"> | string | null
+  dataScopeType?: Prisma.StringWithAggregatesFilter<"Role"> | string
+  dataScopeDepartmentIds?: Prisma.JsonNullableWithAggregatesFilter<"Role">
   isActive?: Prisma.BoolWithAggregatesFilter<"Role"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Role"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Role"> | Date | string
@@ -358,6 +397,8 @@ export type RoleCreateInput = {
   name: string
   code: string
   description?: string | null
+  dataScopeType?: string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -365,15 +406,19 @@ export type RoleCreateInput = {
   updatedBy?: number | null
   deletedAt?: Date | string | null
   deletedBy?: number | null
+  tenant: Prisma.TenantCreateNestedOneWithoutRolesInput
   users?: Prisma.UserRoleCreateNestedManyWithoutRoleInput
   permissions?: Prisma.RolePermissionCreateNestedManyWithoutRoleInput
 }
 
 export type RoleUncheckedCreateInput = {
   id?: number
+  tenantId: number
   name: string
   code: string
   description?: string | null
+  dataScopeType?: string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -389,6 +434,8 @@ export type RoleUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -396,15 +443,19 @@ export type RoleUpdateInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutRolesNestedInput
   users?: Prisma.UserRoleUpdateManyWithoutRoleNestedInput
   permissions?: Prisma.RolePermissionUpdateManyWithoutRoleNestedInput
 }
 
 export type RoleUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -418,9 +469,12 @@ export type RoleUncheckedUpdateInput = {
 
 export type RoleCreateManyInput = {
   id?: number
+  tenantId: number
   name: string
   code: string
   description?: string | null
+  dataScopeType?: string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -434,6 +488,8 @@ export type RoleUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -445,9 +501,12 @@ export type RoleUpdateManyMutationInput = {
 
 export type RoleUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -457,27 +516,42 @@ export type RoleUncheckedUpdateManyInput = {
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
+export type RoleListRelationFilter = {
+  every?: Prisma.RoleWhereInput
+  some?: Prisma.RoleWhereInput
+  none?: Prisma.RoleWhereInput
+}
+
+export type RoleOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
+}
+
 export type RoleOrderByRelevanceInput = {
   fields: Prisma.RoleOrderByRelevanceFieldEnum | Prisma.RoleOrderByRelevanceFieldEnum[]
   sort: Prisma.SortOrder
   search: string
 }
 
-export type RoleCodeDeletedAtCompoundUniqueInput = {
+export type RoleTenantIdCodeDeletedAtCompoundUniqueInput = {
+  tenantId: number
   code: string
   deletedAt: Date | string
 }
 
-export type RoleNameDeletedAtCompoundUniqueInput = {
+export type RoleTenantIdNameDeletedAtCompoundUniqueInput = {
+  tenantId: number
   name: string
   deletedAt: Date | string
 }
 
 export type RoleCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  dataScopeType?: Prisma.SortOrder
+  dataScopeDepartmentIds?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -489,6 +563,7 @@ export type RoleCountOrderByAggregateInput = {
 
 export type RoleAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
@@ -496,9 +571,11 @@ export type RoleAvgOrderByAggregateInput = {
 
 export type RoleMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  dataScopeType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -510,9 +587,11 @@ export type RoleMaxOrderByAggregateInput = {
 
 export type RoleMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   code?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  dataScopeType?: Prisma.SortOrder
   isActive?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -524,6 +603,7 @@ export type RoleMinOrderByAggregateInput = {
 
 export type RoleSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
@@ -532,6 +612,48 @@ export type RoleSumOrderByAggregateInput = {
 export type RoleScalarRelationFilter = {
   is?: Prisma.RoleWhereInput
   isNot?: Prisma.RoleWhereInput
+}
+
+export type RoleCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.RoleCreateWithoutTenantInput, Prisma.RoleUncheckedCreateWithoutTenantInput> | Prisma.RoleCreateWithoutTenantInput[] | Prisma.RoleUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.RoleCreateOrConnectWithoutTenantInput | Prisma.RoleCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.RoleCreateManyTenantInputEnvelope
+  connect?: Prisma.RoleWhereUniqueInput | Prisma.RoleWhereUniqueInput[]
+}
+
+export type RoleUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.RoleCreateWithoutTenantInput, Prisma.RoleUncheckedCreateWithoutTenantInput> | Prisma.RoleCreateWithoutTenantInput[] | Prisma.RoleUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.RoleCreateOrConnectWithoutTenantInput | Prisma.RoleCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.RoleCreateManyTenantInputEnvelope
+  connect?: Prisma.RoleWhereUniqueInput | Prisma.RoleWhereUniqueInput[]
+}
+
+export type RoleUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.RoleCreateWithoutTenantInput, Prisma.RoleUncheckedCreateWithoutTenantInput> | Prisma.RoleCreateWithoutTenantInput[] | Prisma.RoleUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.RoleCreateOrConnectWithoutTenantInput | Prisma.RoleCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.RoleUpsertWithWhereUniqueWithoutTenantInput | Prisma.RoleUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.RoleCreateManyTenantInputEnvelope
+  set?: Prisma.RoleWhereUniqueInput | Prisma.RoleWhereUniqueInput[]
+  disconnect?: Prisma.RoleWhereUniqueInput | Prisma.RoleWhereUniqueInput[]
+  delete?: Prisma.RoleWhereUniqueInput | Prisma.RoleWhereUniqueInput[]
+  connect?: Prisma.RoleWhereUniqueInput | Prisma.RoleWhereUniqueInput[]
+  update?: Prisma.RoleUpdateWithWhereUniqueWithoutTenantInput | Prisma.RoleUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.RoleUpdateManyWithWhereWithoutTenantInput | Prisma.RoleUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.RoleScalarWhereInput | Prisma.RoleScalarWhereInput[]
+}
+
+export type RoleUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.RoleCreateWithoutTenantInput, Prisma.RoleUncheckedCreateWithoutTenantInput> | Prisma.RoleCreateWithoutTenantInput[] | Prisma.RoleUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.RoleCreateOrConnectWithoutTenantInput | Prisma.RoleCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.RoleUpsertWithWhereUniqueWithoutTenantInput | Prisma.RoleUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.RoleCreateManyTenantInputEnvelope
+  set?: Prisma.RoleWhereUniqueInput | Prisma.RoleWhereUniqueInput[]
+  disconnect?: Prisma.RoleWhereUniqueInput | Prisma.RoleWhereUniqueInput[]
+  delete?: Prisma.RoleWhereUniqueInput | Prisma.RoleWhereUniqueInput[]
+  connect?: Prisma.RoleWhereUniqueInput | Prisma.RoleWhereUniqueInput[]
+  update?: Prisma.RoleUpdateWithWhereUniqueWithoutTenantInput | Prisma.RoleUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.RoleUpdateManyWithWhereWithoutTenantInput | Prisma.RoleUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.RoleScalarWhereInput | Prisma.RoleScalarWhereInput[]
 }
 
 export type RoleCreateNestedOneWithoutUsersInput = {
@@ -562,10 +684,12 @@ export type RoleUpdateOneRequiredWithoutPermissionsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.RoleUpdateToOneWithWhereWithoutPermissionsInput, Prisma.RoleUpdateWithoutPermissionsInput>, Prisma.RoleUncheckedUpdateWithoutPermissionsInput>
 }
 
-export type RoleCreateWithoutUsersInput = {
+export type RoleCreateWithoutTenantInput = {
   name: string
   code: string
   description?: string | null
+  dataScopeType?: string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -573,14 +697,99 @@ export type RoleCreateWithoutUsersInput = {
   updatedBy?: number | null
   deletedAt?: Date | string | null
   deletedBy?: number | null
+  users?: Prisma.UserRoleCreateNestedManyWithoutRoleInput
+  permissions?: Prisma.RolePermissionCreateNestedManyWithoutRoleInput
+}
+
+export type RoleUncheckedCreateWithoutTenantInput = {
+  id?: number
+  name: string
+  code: string
+  description?: string | null
+  dataScopeType?: string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy?: number | null
+  updatedBy?: number | null
+  deletedAt?: Date | string | null
+  deletedBy?: number | null
+  users?: Prisma.UserRoleUncheckedCreateNestedManyWithoutRoleInput
+  permissions?: Prisma.RolePermissionUncheckedCreateNestedManyWithoutRoleInput
+}
+
+export type RoleCreateOrConnectWithoutTenantInput = {
+  where: Prisma.RoleWhereUniqueInput
+  create: Prisma.XOR<Prisma.RoleCreateWithoutTenantInput, Prisma.RoleUncheckedCreateWithoutTenantInput>
+}
+
+export type RoleCreateManyTenantInputEnvelope = {
+  data: Prisma.RoleCreateManyTenantInput | Prisma.RoleCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type RoleUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.RoleWhereUniqueInput
+  update: Prisma.XOR<Prisma.RoleUpdateWithoutTenantInput, Prisma.RoleUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.RoleCreateWithoutTenantInput, Prisma.RoleUncheckedCreateWithoutTenantInput>
+}
+
+export type RoleUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.RoleWhereUniqueInput
+  data: Prisma.XOR<Prisma.RoleUpdateWithoutTenantInput, Prisma.RoleUncheckedUpdateWithoutTenantInput>
+}
+
+export type RoleUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.RoleScalarWhereInput
+  data: Prisma.XOR<Prisma.RoleUpdateManyMutationInput, Prisma.RoleUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type RoleScalarWhereInput = {
+  AND?: Prisma.RoleScalarWhereInput | Prisma.RoleScalarWhereInput[]
+  OR?: Prisma.RoleScalarWhereInput[]
+  NOT?: Prisma.RoleScalarWhereInput | Prisma.RoleScalarWhereInput[]
+  id?: Prisma.IntFilter<"Role"> | number
+  tenantId?: Prisma.IntFilter<"Role"> | number
+  name?: Prisma.StringFilter<"Role"> | string
+  code?: Prisma.StringFilter<"Role"> | string
+  description?: Prisma.StringNullableFilter<"Role"> | string | null
+  dataScopeType?: Prisma.StringFilter<"Role"> | string
+  dataScopeDepartmentIds?: Prisma.JsonNullableFilter<"Role">
+  isActive?: Prisma.BoolFilter<"Role"> | boolean
+  createdAt?: Prisma.DateTimeFilter<"Role"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Role"> | Date | string
+  createdBy?: Prisma.IntNullableFilter<"Role"> | number | null
+  updatedBy?: Prisma.IntNullableFilter<"Role"> | number | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Role"> | Date | string | null
+  deletedBy?: Prisma.IntNullableFilter<"Role"> | number | null
+}
+
+export type RoleCreateWithoutUsersInput = {
+  name: string
+  code: string
+  description?: string | null
+  dataScopeType?: string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy?: number | null
+  updatedBy?: number | null
+  deletedAt?: Date | string | null
+  deletedBy?: number | null
+  tenant: Prisma.TenantCreateNestedOneWithoutRolesInput
   permissions?: Prisma.RolePermissionCreateNestedManyWithoutRoleInput
 }
 
 export type RoleUncheckedCreateWithoutUsersInput = {
   id?: number
+  tenantId: number
   name: string
   code: string
   description?: string | null
+  dataScopeType?: string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -611,6 +820,8 @@ export type RoleUpdateWithoutUsersInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -618,14 +829,18 @@ export type RoleUpdateWithoutUsersInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutRolesNestedInput
   permissions?: Prisma.RolePermissionUpdateManyWithoutRoleNestedInput
 }
 
 export type RoleUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -640,6 +855,8 @@ export type RoleCreateWithoutPermissionsInput = {
   name: string
   code: string
   description?: string | null
+  dataScopeType?: string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -647,14 +864,18 @@ export type RoleCreateWithoutPermissionsInput = {
   updatedBy?: number | null
   deletedAt?: Date | string | null
   deletedBy?: number | null
+  tenant: Prisma.TenantCreateNestedOneWithoutRolesInput
   users?: Prisma.UserRoleCreateNestedManyWithoutRoleInput
 }
 
 export type RoleUncheckedCreateWithoutPermissionsInput = {
   id?: number
+  tenantId: number
   name: string
   code: string
   description?: string | null
+  dataScopeType?: string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -685,6 +906,8 @@ export type RoleUpdateWithoutPermissionsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -692,14 +915,18 @@ export type RoleUpdateWithoutPermissionsInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutRolesNestedInput
   users?: Prisma.UserRoleUpdateManyWithoutRoleNestedInput
 }
 
 export type RoleUncheckedUpdateWithoutPermissionsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   code?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -708,6 +935,73 @@ export type RoleUncheckedUpdateWithoutPermissionsInput = {
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   users?: Prisma.UserRoleUncheckedUpdateManyWithoutRoleNestedInput
+}
+
+export type RoleCreateManyTenantInput = {
+  id?: number
+  name: string
+  code: string
+  description?: string | null
+  dataScopeType?: string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy?: number | null
+  updatedBy?: number | null
+  deletedAt?: Date | string | null
+  deletedBy?: number | null
+}
+
+export type RoleUpdateWithoutTenantInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  users?: Prisma.UserRoleUpdateManyWithoutRoleNestedInput
+  permissions?: Prisma.RolePermissionUpdateManyWithoutRoleNestedInput
+}
+
+export type RoleUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  users?: Prisma.UserRoleUncheckedUpdateManyWithoutRoleNestedInput
+  permissions?: Prisma.RolePermissionUncheckedUpdateManyWithoutRoleNestedInput
+}
+
+export type RoleUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  code?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  dataScopeType?: Prisma.StringFieldUpdateOperationsInput | string
+  dataScopeDepartmentIds?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
 }
 
 
@@ -752,9 +1046,12 @@ export type RoleCountOutputTypeCountPermissionsArgs<ExtArgs extends runtime.Type
 
 export type RoleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   code?: boolean
   description?: boolean
+  dataScopeType?: boolean
+  dataScopeDepartmentIds?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -762,6 +1059,7 @@ export type RoleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedBy?: boolean
   deletedAt?: boolean
   deletedBy?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   users?: boolean | Prisma.Role$usersArgs<ExtArgs>
   permissions?: boolean | Prisma.Role$permissionsArgs<ExtArgs>
   _count?: boolean | Prisma.RoleCountOutputTypeDefaultArgs<ExtArgs>
@@ -771,9 +1069,12 @@ export type RoleSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type RoleSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   code?: boolean
   description?: boolean
+  dataScopeType?: boolean
+  dataScopeDepartmentIds?: boolean
   isActive?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -783,8 +1084,9 @@ export type RoleSelectScalar = {
   deletedBy?: boolean
 }
 
-export type RoleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "code" | "description" | "isActive" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["role"]>
+export type RoleOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "code" | "description" | "dataScopeType" | "dataScopeDepartmentIds" | "isActive" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["role"]>
 export type RoleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   users?: boolean | Prisma.Role$usersArgs<ExtArgs>
   permissions?: boolean | Prisma.Role$permissionsArgs<ExtArgs>
   _count?: boolean | Prisma.RoleCountOutputTypeDefaultArgs<ExtArgs>
@@ -793,6 +1095,10 @@ export type RoleInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type $RolePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Role"
   objects: {
+    /**
+     * 租户
+     */
+    tenant: Prisma.$TenantPayload<ExtArgs>
     /**
      * 用户角色关联
      */
@@ -808,6 +1114,10 @@ export type $RolePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
      */
     id: number
     /**
+     * 租户ID
+     */
+    tenantId: number
+    /**
      * 角色名称
      */
     name: string
@@ -819,6 +1129,14 @@ export type $RolePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
      * 角色描述
      */
     description: string | null
+    /**
+     * 数据范围类型
+     */
+    dataScopeType: string
+    /**
+     * 自定义数据范围(部门ID列表)
+     */
+    dataScopeDepartmentIds: runtime.JsonValue | null
     /**
      * 是否启用
      */
@@ -1187,6 +1505,7 @@ readonly fields: RoleFieldRefs;
  */
 export interface Prisma__RoleClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   users<T extends Prisma.Role$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Role$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserRolePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   permissions<T extends Prisma.Role$permissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Role$permissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$RolePermissionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1219,9 +1538,12 @@ export interface Prisma__RoleClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface RoleFieldRefs {
   readonly id: Prisma.FieldRef<"Role", 'Int'>
+  readonly tenantId: Prisma.FieldRef<"Role", 'Int'>
   readonly name: Prisma.FieldRef<"Role", 'String'>
   readonly code: Prisma.FieldRef<"Role", 'String'>
   readonly description: Prisma.FieldRef<"Role", 'String'>
+  readonly dataScopeType: Prisma.FieldRef<"Role", 'String'>
+  readonly dataScopeDepartmentIds: Prisma.FieldRef<"Role", 'Json'>
   readonly isActive: Prisma.FieldRef<"Role", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"Role", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Role", 'DateTime'>

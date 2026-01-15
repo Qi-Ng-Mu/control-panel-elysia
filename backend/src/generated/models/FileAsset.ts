@@ -28,6 +28,7 @@ export type AggregateFileAsset = {
 
 export type FileAssetAvgAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   size: number | null
   createdBy: number | null
   updatedBy: number | null
@@ -36,6 +37,7 @@ export type FileAssetAvgAggregateOutputType = {
 
 export type FileAssetSumAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   size: number | null
   createdBy: number | null
   updatedBy: number | null
@@ -44,6 +46,7 @@ export type FileAssetSumAggregateOutputType = {
 
 export type FileAssetMinAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   storageType: string | null
   originalName: string | null
   mimeType: string | null
@@ -60,6 +63,7 @@ export type FileAssetMinAggregateOutputType = {
 
 export type FileAssetMaxAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   storageType: string | null
   originalName: string | null
   mimeType: string | null
@@ -76,6 +80,7 @@ export type FileAssetMaxAggregateOutputType = {
 
 export type FileAssetCountAggregateOutputType = {
   id: number
+  tenantId: number
   storageType: number
   originalName: number
   mimeType: number
@@ -94,6 +99,7 @@ export type FileAssetCountAggregateOutputType = {
 
 export type FileAssetAvgAggregateInputType = {
   id?: true
+  tenantId?: true
   size?: true
   createdBy?: true
   updatedBy?: true
@@ -102,6 +108,7 @@ export type FileAssetAvgAggregateInputType = {
 
 export type FileAssetSumAggregateInputType = {
   id?: true
+  tenantId?: true
   size?: true
   createdBy?: true
   updatedBy?: true
@@ -110,6 +117,7 @@ export type FileAssetSumAggregateInputType = {
 
 export type FileAssetMinAggregateInputType = {
   id?: true
+  tenantId?: true
   storageType?: true
   originalName?: true
   mimeType?: true
@@ -126,6 +134,7 @@ export type FileAssetMinAggregateInputType = {
 
 export type FileAssetMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   storageType?: true
   originalName?: true
   mimeType?: true
@@ -142,6 +151,7 @@ export type FileAssetMaxAggregateInputType = {
 
 export type FileAssetCountAggregateInputType = {
   id?: true
+  tenantId?: true
   storageType?: true
   originalName?: true
   mimeType?: true
@@ -245,6 +255,7 @@ export type FileAssetGroupByArgs<ExtArgs extends runtime.Types.Extensions.Intern
 
 export type FileAssetGroupByOutputType = {
   id: number
+  tenantId: number
   storageType: string
   originalName: string
   mimeType: string
@@ -284,6 +295,7 @@ export type FileAssetWhereInput = {
   OR?: Prisma.FileAssetWhereInput[]
   NOT?: Prisma.FileAssetWhereInput | Prisma.FileAssetWhereInput[]
   id?: Prisma.IntFilter<"FileAsset"> | number
+  tenantId?: Prisma.IntFilter<"FileAsset"> | number
   storageType?: Prisma.StringFilter<"FileAsset"> | string
   originalName?: Prisma.StringFilter<"FileAsset"> | string
   mimeType?: Prisma.StringFilter<"FileAsset"> | string
@@ -301,6 +313,7 @@ export type FileAssetWhereInput = {
 
 export type FileAssetOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   storageType?: Prisma.SortOrder
   originalName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
@@ -319,10 +332,11 @@ export type FileAssetOrderByWithRelationInput = {
 
 export type FileAssetWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  hash_deletedAt?: Prisma.FileAssetHashDeletedAtCompoundUniqueInput
+  tenantId_hash_deletedAt?: Prisma.FileAssetTenantIdHashDeletedAtCompoundUniqueInput
   AND?: Prisma.FileAssetWhereInput | Prisma.FileAssetWhereInput[]
   OR?: Prisma.FileAssetWhereInput[]
   NOT?: Prisma.FileAssetWhereInput | Prisma.FileAssetWhereInput[]
+  tenantId?: Prisma.IntFilter<"FileAsset"> | number
   storageType?: Prisma.StringFilter<"FileAsset"> | string
   originalName?: Prisma.StringFilter<"FileAsset"> | string
   mimeType?: Prisma.StringFilter<"FileAsset"> | string
@@ -336,10 +350,11 @@ export type FileAssetWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"FileAsset"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"FileAsset"> | number | null
   users?: Prisma.UserListRelationFilter
-}, "id" | "hash_deletedAt">
+}, "id" | "tenantId_hash_deletedAt">
 
 export type FileAssetOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   storageType?: Prisma.SortOrder
   originalName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
@@ -364,6 +379,7 @@ export type FileAssetScalarWhereWithAggregatesInput = {
   OR?: Prisma.FileAssetScalarWhereWithAggregatesInput[]
   NOT?: Prisma.FileAssetScalarWhereWithAggregatesInput | Prisma.FileAssetScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"FileAsset"> | number
+  tenantId?: Prisma.IntWithAggregatesFilter<"FileAsset"> | number
   storageType?: Prisma.StringWithAggregatesFilter<"FileAsset"> | string
   originalName?: Prisma.StringWithAggregatesFilter<"FileAsset"> | string
   mimeType?: Prisma.StringWithAggregatesFilter<"FileAsset"> | string
@@ -379,6 +395,7 @@ export type FileAssetScalarWhereWithAggregatesInput = {
 }
 
 export type FileAssetCreateInput = {
+  tenantId: number
   storageType: string
   originalName: string
   mimeType: string
@@ -396,6 +413,7 @@ export type FileAssetCreateInput = {
 
 export type FileAssetUncheckedCreateInput = {
   id?: number
+  tenantId: number
   storageType: string
   originalName: string
   mimeType: string
@@ -412,6 +430,7 @@ export type FileAssetUncheckedCreateInput = {
 }
 
 export type FileAssetUpdateInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   storageType?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -429,6 +448,7 @@ export type FileAssetUpdateInput = {
 
 export type FileAssetUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   storageType?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -446,6 +466,7 @@ export type FileAssetUncheckedUpdateInput = {
 
 export type FileAssetCreateManyInput = {
   id?: number
+  tenantId: number
   storageType: string
   originalName: string
   mimeType: string
@@ -461,6 +482,7 @@ export type FileAssetCreateManyInput = {
 }
 
 export type FileAssetUpdateManyMutationInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   storageType?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -477,6 +499,7 @@ export type FileAssetUpdateManyMutationInput = {
 
 export type FileAssetUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   storageType?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -502,13 +525,15 @@ export type FileAssetOrderByRelevanceInput = {
   search: string
 }
 
-export type FileAssetHashDeletedAtCompoundUniqueInput = {
+export type FileAssetTenantIdHashDeletedAtCompoundUniqueInput = {
+  tenantId: number
   hash: string
   deletedAt: Date | string
 }
 
 export type FileAssetCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   storageType?: Prisma.SortOrder
   originalName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
@@ -525,6 +550,7 @@ export type FileAssetCountOrderByAggregateInput = {
 
 export type FileAssetAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   size?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
@@ -533,6 +559,7 @@ export type FileAssetAvgOrderByAggregateInput = {
 
 export type FileAssetMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   storageType?: Prisma.SortOrder
   originalName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
@@ -549,6 +576,7 @@ export type FileAssetMaxOrderByAggregateInput = {
 
 export type FileAssetMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   storageType?: Prisma.SortOrder
   originalName?: Prisma.SortOrder
   mimeType?: Prisma.SortOrder
@@ -565,6 +593,7 @@ export type FileAssetMinOrderByAggregateInput = {
 
 export type FileAssetSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   size?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
@@ -588,6 +617,7 @@ export type FileAssetUpdateOneWithoutUsersNestedInput = {
 }
 
 export type FileAssetCreateWithoutUsersInput = {
+  tenantId: number
   storageType: string
   originalName: string
   mimeType: string
@@ -604,6 +634,7 @@ export type FileAssetCreateWithoutUsersInput = {
 
 export type FileAssetUncheckedCreateWithoutUsersInput = {
   id?: number
+  tenantId: number
   storageType: string
   originalName: string
   mimeType: string
@@ -635,6 +666,7 @@ export type FileAssetUpdateToOneWithWhereWithoutUsersInput = {
 }
 
 export type FileAssetUpdateWithoutUsersInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   storageType?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -651,6 +683,7 @@ export type FileAssetUpdateWithoutUsersInput = {
 
 export type FileAssetUncheckedUpdateWithoutUsersInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   storageType?: Prisma.StringFieldUpdateOperationsInput | string
   originalName?: Prisma.StringFieldUpdateOperationsInput | string
   mimeType?: Prisma.StringFieldUpdateOperationsInput | string
@@ -698,6 +731,7 @@ export type FileAssetCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Types
 
 export type FileAssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   storageType?: boolean
   originalName?: boolean
   mimeType?: boolean
@@ -718,6 +752,7 @@ export type FileAssetSelect<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type FileAssetSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   storageType?: boolean
   originalName?: boolean
   mimeType?: boolean
@@ -732,7 +767,7 @@ export type FileAssetSelectScalar = {
   deletedBy?: boolean
 }
 
-export type FileAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "storageType" | "originalName" | "mimeType" | "hash" | "path" | "size" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["fileAsset"]>
+export type FileAssetOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "storageType" | "originalName" | "mimeType" | "hash" | "path" | "size" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["fileAsset"]>
 export type FileAssetInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.FileAsset$usersArgs<ExtArgs>
   _count?: boolean | Prisma.FileAssetCountOutputTypeDefaultArgs<ExtArgs>
@@ -751,6 +786,10 @@ export type $FileAssetPayload<ExtArgs extends runtime.Types.Extensions.InternalA
      * 文件ID
      */
     id: number
+    /**
+     * 租户ID
+     */
+    tenantId: number
     /**
      * 存储类型(local/oss)
      */
@@ -1170,6 +1209,7 @@ export interface Prisma__FileAssetClient<T, Null = never, ExtArgs extends runtim
  */
 export interface FileAssetFieldRefs {
   readonly id: Prisma.FieldRef<"FileAsset", 'Int'>
+  readonly tenantId: Prisma.FieldRef<"FileAsset", 'Int'>
   readonly storageType: Prisma.FieldRef<"FileAsset", 'String'>
   readonly originalName: Prisma.FieldRef<"FileAsset", 'String'>
   readonly mimeType: Prisma.FieldRef<"FileAsset", 'String'>

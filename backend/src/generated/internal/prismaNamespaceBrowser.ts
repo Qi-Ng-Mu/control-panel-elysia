@@ -51,6 +51,10 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Tenant: 'Tenant',
+  Department: 'Department',
+  Position: 'Position',
+  UserPosition: 'UserPosition',
   User: 'User',
   Role: 'Role',
   Permission: 'Permission',
@@ -61,7 +65,17 @@ export const ModelName = {
   SystemConfig: 'SystemConfig',
   Session: 'Session',
   TerminalSession: 'TerminalSession',
-  OperationLog: 'OperationLog'
+  OperationLog: 'OperationLog',
+  DictionaryGroup: 'DictionaryGroup',
+  DictionaryItem: 'DictionaryItem',
+  NoticeTemplate: 'NoticeTemplate',
+  Notice: 'Notice',
+  Ticket: 'Ticket',
+  TicketFlow: 'TicketFlow',
+  TicketFlowNode: 'TicketFlowNode',
+  TicketFlowCondition: 'TicketFlowCondition',
+  TicketFlowInstance: 'TicketFlowInstance',
+  TicketFlowInstanceHistory: 'TicketFlowInstanceHistory'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -80,13 +94,81 @@ export const TransactionIsolationLevel = {
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
+export const TenantScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  code: 'code',
+  isActive: 'isActive',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type TenantScalarFieldEnum = (typeof TenantScalarFieldEnum)[keyof typeof TenantScalarFieldEnum]
+
+
+export const DepartmentScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  code: 'code',
+  order: 'order',
+  isActive: 'isActive',
+  parentId: 'parentId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type DepartmentScalarFieldEnum = (typeof DepartmentScalarFieldEnum)[keyof typeof DepartmentScalarFieldEnum]
+
+
+export const PositionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  code: 'code',
+  description: 'description',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type PositionScalarFieldEnum = (typeof PositionScalarFieldEnum)[keyof typeof PositionScalarFieldEnum]
+
+
+export const UserPositionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  userId: 'userId',
+  positionId: 'positionId',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy'
+} as const
+
+export type UserPositionScalarFieldEnum = (typeof UserPositionScalarFieldEnum)[keyof typeof UserPositionScalarFieldEnum]
+
+
 export const UserScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   username: 'username',
   email: 'email',
   passwordHash: 'passwordHash',
   displayName: 'displayName',
   avatarFileId: 'avatarFileId',
+  departmentId: 'departmentId',
   isActive: 'isActive',
   lastLoginAt: 'lastLoginAt',
   createdAt: 'createdAt',
@@ -102,9 +184,12 @@ export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof User
 
 export const RoleScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   name: 'name',
   code: 'code',
   description: 'description',
+  dataScopeType: 'dataScopeType',
+  dataScopeDepartmentIds: 'dataScopeDepartmentIds',
   isActive: 'isActive',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
@@ -119,6 +204,7 @@ export type RoleScalarFieldEnum = (typeof RoleScalarFieldEnum)[keyof typeof Role
 
 export const PermissionScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   name: 'name',
   code: 'code',
   description: 'description',
@@ -135,6 +221,7 @@ export type PermissionScalarFieldEnum = (typeof PermissionScalarFieldEnum)[keyof
 
 export const UserRoleScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   userId: 'userId',
   roleId: 'roleId',
   createdAt: 'createdAt',
@@ -146,6 +233,7 @@ export type UserRoleScalarFieldEnum = (typeof UserRoleScalarFieldEnum)[keyof typ
 
 export const RolePermissionScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   roleId: 'roleId',
   permissionId: 'permissionId',
   createdAt: 'createdAt',
@@ -157,6 +245,7 @@ export type RolePermissionScalarFieldEnum = (typeof RolePermissionScalarFieldEnu
 
 export const MenuScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   name: 'name',
   path: 'path',
   component: 'component',
@@ -180,6 +269,7 @@ export type MenuScalarFieldEnum = (typeof MenuScalarFieldEnum)[keyof typeof Menu
 
 export const FileAssetScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   storageType: 'storageType',
   originalName: 'originalName',
   mimeType: 'mimeType',
@@ -199,6 +289,7 @@ export type FileAssetScalarFieldEnum = (typeof FileAssetScalarFieldEnum)[keyof t
 
 export const SystemConfigScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   key: 'key',
   value: 'value',
   description: 'description',
@@ -216,6 +307,7 @@ export type SystemConfigScalarFieldEnum = (typeof SystemConfigScalarFieldEnum)[k
 
 export const SessionScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   userId: 'userId',
   refreshTokenHash: 'refreshTokenHash',
   deviceId: 'deviceId',
@@ -232,6 +324,7 @@ export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeo
 
 export const TerminalSessionScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   userId: 'userId',
   name: 'name',
   sessionId: 'sessionId',
@@ -250,6 +343,7 @@ export type TerminalSessionScalarFieldEnum = (typeof TerminalSessionScalarFieldE
 
 export const OperationLogScalarFieldEnum = {
   id: 'id',
+  tenantId: 'tenantId',
   userId: 'userId',
   action: 'action',
   targetType: 'targetType',
@@ -263,19 +357,189 @@ export const OperationLogScalarFieldEnum = {
 export type OperationLogScalarFieldEnum = (typeof OperationLogScalarFieldEnum)[keyof typeof OperationLogScalarFieldEnum]
 
 
+export const DictionaryGroupScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  code: 'code',
+  description: 'description',
+  order: 'order',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type DictionaryGroupScalarFieldEnum = (typeof DictionaryGroupScalarFieldEnum)[keyof typeof DictionaryGroupScalarFieldEnum]
+
+
+export const DictionaryItemScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  groupId: 'groupId',
+  label: 'label',
+  value: 'value',
+  order: 'order',
+  isActive: 'isActive',
+  description: 'description',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type DictionaryItemScalarFieldEnum = (typeof DictionaryItemScalarFieldEnum)[keyof typeof DictionaryItemScalarFieldEnum]
+
+
+export const NoticeTemplateScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  code: 'code',
+  content: 'content',
+  description: 'description',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type NoticeTemplateScalarFieldEnum = (typeof NoticeTemplateScalarFieldEnum)[keyof typeof NoticeTemplateScalarFieldEnum]
+
+
+export const NoticeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  templateId: 'templateId',
+  title: 'title',
+  content: 'content',
+  status: 'status',
+  publishedAt: 'publishedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type NoticeScalarFieldEnum = (typeof NoticeScalarFieldEnum)[keyof typeof NoticeScalarFieldEnum]
+
+
+export const TicketScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  flowId: 'flowId',
+  currentNodeId: 'currentNodeId',
+  requesterId: 'requesterId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type TicketScalarFieldEnum = (typeof TicketScalarFieldEnum)[keyof typeof TicketScalarFieldEnum]
+
+
+export const TicketFlowScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  name: 'name',
+  description: 'description',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type TicketFlowScalarFieldEnum = (typeof TicketFlowScalarFieldEnum)[keyof typeof TicketFlowScalarFieldEnum]
+
+
+export const TicketFlowNodeScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  flowId: 'flowId',
+  name: 'name',
+  type: 'type',
+  order: 'order',
+  isStart: 'isStart',
+  isEnd: 'isEnd',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  createdBy: 'createdBy',
+  updatedBy: 'updatedBy',
+  deletedAt: 'deletedAt',
+  deletedBy: 'deletedBy'
+} as const
+
+export type TicketFlowNodeScalarFieldEnum = (typeof TicketFlowNodeScalarFieldEnum)[keyof typeof TicketFlowNodeScalarFieldEnum]
+
+
+export const TicketFlowConditionScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  flowId: 'flowId',
+  sourceNodeId: 'sourceNodeId',
+  targetNodeId: 'targetNodeId',
+  expression: 'expression',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy'
+} as const
+
+export type TicketFlowConditionScalarFieldEnum = (typeof TicketFlowConditionScalarFieldEnum)[keyof typeof TicketFlowConditionScalarFieldEnum]
+
+
+export const TicketFlowInstanceScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  ticketId: 'ticketId',
+  flowId: 'flowId',
+  currentNodeId: 'currentNodeId',
+  status: 'status',
+  startedAt: 'startedAt',
+  endedAt: 'endedAt'
+} as const
+
+export type TicketFlowInstanceScalarFieldEnum = (typeof TicketFlowInstanceScalarFieldEnum)[keyof typeof TicketFlowInstanceScalarFieldEnum]
+
+
+export const TicketFlowInstanceHistoryScalarFieldEnum = {
+  id: 'id',
+  tenantId: 'tenantId',
+  instanceId: 'instanceId',
+  fromNodeId: 'fromNodeId',
+  toNodeId: 'toNodeId',
+  action: 'action',
+  payload: 'payload',
+  createdAt: 'createdAt',
+  createdBy: 'createdBy'
+} as const
+
+export type TicketFlowInstanceHistoryScalarFieldEnum = (typeof TicketFlowInstanceHistoryScalarFieldEnum)[keyof typeof TicketFlowInstanceHistoryScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
-
-
-export const JsonNullValueInput = {
-  JsonNull: 'JsonNull'
-} as const
-
-export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const NullableJsonNullValueInput = {
@@ -286,12 +550,44 @@ export const NullableJsonNullValueInput = {
 export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
+export const JsonNullValueInput = {
+  JsonNull: 'JsonNull'
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const NullsOrder = {
   first: 'first',
   last: 'last'
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const TenantOrderByRelevanceFieldEnum = {
+  name: 'name',
+  code: 'code'
+} as const
+
+export type TenantOrderByRelevanceFieldEnum = (typeof TenantOrderByRelevanceFieldEnum)[keyof typeof TenantOrderByRelevanceFieldEnum]
+
+
+export const DepartmentOrderByRelevanceFieldEnum = {
+  name: 'name',
+  code: 'code'
+} as const
+
+export type DepartmentOrderByRelevanceFieldEnum = (typeof DepartmentOrderByRelevanceFieldEnum)[keyof typeof DepartmentOrderByRelevanceFieldEnum]
+
+
+export const PositionOrderByRelevanceFieldEnum = {
+  name: 'name',
+  code: 'code',
+  description: 'description'
+} as const
+
+export type PositionOrderByRelevanceFieldEnum = (typeof PositionOrderByRelevanceFieldEnum)[keyof typeof PositionOrderByRelevanceFieldEnum]
 
 
 export const UserOrderByRelevanceFieldEnum = {
@@ -304,10 +600,28 @@ export const UserOrderByRelevanceFieldEnum = {
 export type UserOrderByRelevanceFieldEnum = (typeof UserOrderByRelevanceFieldEnum)[keyof typeof UserOrderByRelevanceFieldEnum]
 
 
+export const JsonNullValueFilter = {
+  DbNull: 'DbNull',
+  JsonNull: 'JsonNull',
+  AnyNull: 'AnyNull'
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
+
+
+export const QueryMode = {
+  default: 'default',
+  insensitive: 'insensitive'
+} as const
+
+export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
+
+
 export const RoleOrderByRelevanceFieldEnum = {
   name: 'name',
   code: 'code',
-  description: 'description'
+  description: 'description',
+  dataScopeType: 'dataScopeType'
 } as const
 
 export type RoleOrderByRelevanceFieldEnum = (typeof RoleOrderByRelevanceFieldEnum)[keyof typeof RoleOrderByRelevanceFieldEnum]
@@ -341,23 +655,6 @@ export const FileAssetOrderByRelevanceFieldEnum = {
 } as const
 
 export type FileAssetOrderByRelevanceFieldEnum = (typeof FileAssetOrderByRelevanceFieldEnum)[keyof typeof FileAssetOrderByRelevanceFieldEnum]
-
-
-export const JsonNullValueFilter = {
-  DbNull: 'DbNull',
-  JsonNull: 'JsonNull',
-  AnyNull: 'AnyNull'
-} as const
-
-export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
-
-
-export const QueryMode = {
-  default: 'default',
-  insensitive: 'insensitive'
-} as const
-
-export type QueryMode = (typeof QueryMode)[keyof typeof QueryMode]
 
 
 export const SystemConfigOrderByRelevanceFieldEnum = {
@@ -395,4 +692,78 @@ export const OperationLogOrderByRelevanceFieldEnum = {
 } as const
 
 export type OperationLogOrderByRelevanceFieldEnum = (typeof OperationLogOrderByRelevanceFieldEnum)[keyof typeof OperationLogOrderByRelevanceFieldEnum]
+
+
+export const DictionaryGroupOrderByRelevanceFieldEnum = {
+  name: 'name',
+  code: 'code',
+  description: 'description'
+} as const
+
+export type DictionaryGroupOrderByRelevanceFieldEnum = (typeof DictionaryGroupOrderByRelevanceFieldEnum)[keyof typeof DictionaryGroupOrderByRelevanceFieldEnum]
+
+
+export const DictionaryItemOrderByRelevanceFieldEnum = {
+  label: 'label',
+  value: 'value',
+  description: 'description'
+} as const
+
+export type DictionaryItemOrderByRelevanceFieldEnum = (typeof DictionaryItemOrderByRelevanceFieldEnum)[keyof typeof DictionaryItemOrderByRelevanceFieldEnum]
+
+
+export const NoticeTemplateOrderByRelevanceFieldEnum = {
+  name: 'name',
+  code: 'code',
+  description: 'description'
+} as const
+
+export type NoticeTemplateOrderByRelevanceFieldEnum = (typeof NoticeTemplateOrderByRelevanceFieldEnum)[keyof typeof NoticeTemplateOrderByRelevanceFieldEnum]
+
+
+export const NoticeOrderByRelevanceFieldEnum = {
+  title: 'title',
+  status: 'status'
+} as const
+
+export type NoticeOrderByRelevanceFieldEnum = (typeof NoticeOrderByRelevanceFieldEnum)[keyof typeof NoticeOrderByRelevanceFieldEnum]
+
+
+export const TicketOrderByRelevanceFieldEnum = {
+  title: 'title',
+  description: 'description',
+  status: 'status'
+} as const
+
+export type TicketOrderByRelevanceFieldEnum = (typeof TicketOrderByRelevanceFieldEnum)[keyof typeof TicketOrderByRelevanceFieldEnum]
+
+
+export const TicketFlowOrderByRelevanceFieldEnum = {
+  name: 'name',
+  description: 'description'
+} as const
+
+export type TicketFlowOrderByRelevanceFieldEnum = (typeof TicketFlowOrderByRelevanceFieldEnum)[keyof typeof TicketFlowOrderByRelevanceFieldEnum]
+
+
+export const TicketFlowNodeOrderByRelevanceFieldEnum = {
+  name: 'name',
+  type: 'type'
+} as const
+
+export type TicketFlowNodeOrderByRelevanceFieldEnum = (typeof TicketFlowNodeOrderByRelevanceFieldEnum)[keyof typeof TicketFlowNodeOrderByRelevanceFieldEnum]
+
+
+export const TicketFlowInstanceOrderByRelevanceFieldEnum = {
+  status: 'status'
+} as const
+
+export type TicketFlowInstanceOrderByRelevanceFieldEnum = (typeof TicketFlowInstanceOrderByRelevanceFieldEnum)[keyof typeof TicketFlowInstanceOrderByRelevanceFieldEnum]
+
+
+export const TicketFlowInstanceHistoryOrderByRelevanceFieldEnum = {
+  action: 'action'
+} as const
+
+export type TicketFlowInstanceHistoryOrderByRelevanceFieldEnum = (typeof TicketFlowInstanceHistoryOrderByRelevanceFieldEnum)[keyof typeof TicketFlowInstanceHistoryOrderByRelevanceFieldEnum]
 

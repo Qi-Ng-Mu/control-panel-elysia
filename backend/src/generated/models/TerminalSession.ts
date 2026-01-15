@@ -28,6 +28,7 @@ export type AggregateTerminalSession = {
 
 export type TerminalSessionAvgAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
   createdBy: number | null
   updatedBy: number | null
@@ -36,6 +37,7 @@ export type TerminalSessionAvgAggregateOutputType = {
 
 export type TerminalSessionSumAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
   createdBy: number | null
   updatedBy: number | null
@@ -44,6 +46,7 @@ export type TerminalSessionSumAggregateOutputType = {
 
 export type TerminalSessionMinAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
   name: string | null
   sessionId: string | null
@@ -59,6 +62,7 @@ export type TerminalSessionMinAggregateOutputType = {
 
 export type TerminalSessionMaxAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
   name: string | null
   sessionId: string | null
@@ -74,6 +78,7 @@ export type TerminalSessionMaxAggregateOutputType = {
 
 export type TerminalSessionCountAggregateOutputType = {
   id: number
+  tenantId: number
   userId: number
   name: number
   sessionId: number
@@ -91,6 +96,7 @@ export type TerminalSessionCountAggregateOutputType = {
 
 export type TerminalSessionAvgAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   createdBy?: true
   updatedBy?: true
@@ -99,6 +105,7 @@ export type TerminalSessionAvgAggregateInputType = {
 
 export type TerminalSessionSumAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   createdBy?: true
   updatedBy?: true
@@ -107,6 +114,7 @@ export type TerminalSessionSumAggregateInputType = {
 
 export type TerminalSessionMinAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   name?: true
   sessionId?: true
@@ -122,6 +130,7 @@ export type TerminalSessionMinAggregateInputType = {
 
 export type TerminalSessionMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   name?: true
   sessionId?: true
@@ -137,6 +146,7 @@ export type TerminalSessionMaxAggregateInputType = {
 
 export type TerminalSessionCountAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   name?: true
   sessionId?: true
@@ -239,6 +249,7 @@ export type TerminalSessionGroupByArgs<ExtArgs extends runtime.Types.Extensions.
 
 export type TerminalSessionGroupByOutputType = {
   id: number
+  tenantId: number
   userId: number
   name: string | null
   sessionId: string
@@ -277,6 +288,7 @@ export type TerminalSessionWhereInput = {
   OR?: Prisma.TerminalSessionWhereInput[]
   NOT?: Prisma.TerminalSessionWhereInput | Prisma.TerminalSessionWhereInput[]
   id?: Prisma.IntFilter<"TerminalSession"> | number
+  tenantId?: Prisma.IntFilter<"TerminalSession"> | number
   userId?: Prisma.IntFilter<"TerminalSession"> | number
   name?: Prisma.StringNullableFilter<"TerminalSession"> | string | null
   sessionId?: Prisma.StringFilter<"TerminalSession"> | string
@@ -293,6 +305,7 @@ export type TerminalSessionWhereInput = {
 
 export type TerminalSessionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   sessionId?: Prisma.SortOrder
@@ -310,10 +323,11 @@ export type TerminalSessionOrderByWithRelationInput = {
 
 export type TerminalSessionWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  sessionId_deletedAt?: Prisma.TerminalSessionSessionIdDeletedAtCompoundUniqueInput
+  tenantId_sessionId_deletedAt?: Prisma.TerminalSessionTenantIdSessionIdDeletedAtCompoundUniqueInput
   AND?: Prisma.TerminalSessionWhereInput | Prisma.TerminalSessionWhereInput[]
   OR?: Prisma.TerminalSessionWhereInput[]
   NOT?: Prisma.TerminalSessionWhereInput | Prisma.TerminalSessionWhereInput[]
+  tenantId?: Prisma.IntFilter<"TerminalSession"> | number
   userId?: Prisma.IntFilter<"TerminalSession"> | number
   name?: Prisma.StringNullableFilter<"TerminalSession"> | string | null
   sessionId?: Prisma.StringFilter<"TerminalSession"> | string
@@ -326,10 +340,11 @@ export type TerminalSessionWhereUniqueInput = Prisma.AtLeast<{
   deletedAt?: Prisma.DateTimeNullableFilter<"TerminalSession"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"TerminalSession"> | number | null
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "id" | "sessionId_deletedAt">
+}, "id" | "tenantId_sessionId_deletedAt">
 
 export type TerminalSessionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   sessionId?: Prisma.SortOrder
@@ -353,6 +368,7 @@ export type TerminalSessionScalarWhereWithAggregatesInput = {
   OR?: Prisma.TerminalSessionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.TerminalSessionScalarWhereWithAggregatesInput | Prisma.TerminalSessionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"TerminalSession"> | number
+  tenantId?: Prisma.IntWithAggregatesFilter<"TerminalSession"> | number
   userId?: Prisma.IntWithAggregatesFilter<"TerminalSession"> | number
   name?: Prisma.StringNullableWithAggregatesFilter<"TerminalSession"> | string | null
   sessionId?: Prisma.StringWithAggregatesFilter<"TerminalSession"> | string
@@ -367,6 +383,7 @@ export type TerminalSessionScalarWhereWithAggregatesInput = {
 }
 
 export type TerminalSessionCreateInput = {
+  tenantId: number
   name?: string | null
   sessionId: string
   isActive?: boolean
@@ -382,6 +399,7 @@ export type TerminalSessionCreateInput = {
 
 export type TerminalSessionUncheckedCreateInput = {
   id?: number
+  tenantId: number
   userId: number
   name?: string | null
   sessionId: string
@@ -396,6 +414,7 @@ export type TerminalSessionUncheckedCreateInput = {
 }
 
 export type TerminalSessionUpdateInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -411,6 +430,7 @@ export type TerminalSessionUpdateInput = {
 
 export type TerminalSessionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -426,6 +446,7 @@ export type TerminalSessionUncheckedUpdateInput = {
 
 export type TerminalSessionCreateManyInput = {
   id?: number
+  tenantId: number
   userId: number
   name?: string | null
   sessionId: string
@@ -440,6 +461,7 @@ export type TerminalSessionCreateManyInput = {
 }
 
 export type TerminalSessionUpdateManyMutationInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -454,6 +476,7 @@ export type TerminalSessionUpdateManyMutationInput = {
 
 export type TerminalSessionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -483,13 +506,15 @@ export type TerminalSessionOrderByRelevanceInput = {
   search: string
 }
 
-export type TerminalSessionSessionIdDeletedAtCompoundUniqueInput = {
+export type TerminalSessionTenantIdSessionIdDeletedAtCompoundUniqueInput = {
+  tenantId: number
   sessionId: string
   deletedAt: Date | string
 }
 
 export type TerminalSessionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
@@ -505,6 +530,7 @@ export type TerminalSessionCountOrderByAggregateInput = {
 
 export type TerminalSessionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
@@ -513,6 +539,7 @@ export type TerminalSessionAvgOrderByAggregateInput = {
 
 export type TerminalSessionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
@@ -528,6 +555,7 @@ export type TerminalSessionMaxOrderByAggregateInput = {
 
 export type TerminalSessionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   sessionId?: Prisma.SortOrder
@@ -543,6 +571,7 @@ export type TerminalSessionMinOrderByAggregateInput = {
 
 export type TerminalSessionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
@@ -592,6 +621,7 @@ export type TerminalSessionUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type TerminalSessionCreateWithoutUserInput = {
+  tenantId: number
   name?: string | null
   sessionId: string
   isActive?: boolean
@@ -606,6 +636,7 @@ export type TerminalSessionCreateWithoutUserInput = {
 
 export type TerminalSessionUncheckedCreateWithoutUserInput = {
   id?: number
+  tenantId: number
   name?: string | null
   sessionId: string
   isActive?: boolean
@@ -649,6 +680,7 @@ export type TerminalSessionScalarWhereInput = {
   OR?: Prisma.TerminalSessionScalarWhereInput[]
   NOT?: Prisma.TerminalSessionScalarWhereInput | Prisma.TerminalSessionScalarWhereInput[]
   id?: Prisma.IntFilter<"TerminalSession"> | number
+  tenantId?: Prisma.IntFilter<"TerminalSession"> | number
   userId?: Prisma.IntFilter<"TerminalSession"> | number
   name?: Prisma.StringNullableFilter<"TerminalSession"> | string | null
   sessionId?: Prisma.StringFilter<"TerminalSession"> | string
@@ -664,6 +696,7 @@ export type TerminalSessionScalarWhereInput = {
 
 export type TerminalSessionCreateManyUserInput = {
   id?: number
+  tenantId: number
   name?: string | null
   sessionId: string
   isActive?: boolean
@@ -677,6 +710,7 @@ export type TerminalSessionCreateManyUserInput = {
 }
 
 export type TerminalSessionUpdateWithoutUserInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -691,6 +725,7 @@ export type TerminalSessionUpdateWithoutUserInput = {
 
 export type TerminalSessionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -705,6 +740,7 @@ export type TerminalSessionUncheckedUpdateWithoutUserInput = {
 
 export type TerminalSessionUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessionId?: Prisma.StringFieldUpdateOperationsInput | string
   isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -721,6 +757,7 @@ export type TerminalSessionUncheckedUpdateManyWithoutUserInput = {
 
 export type TerminalSessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   userId?: boolean
   name?: boolean
   sessionId?: boolean
@@ -739,6 +776,7 @@ export type TerminalSessionSelect<ExtArgs extends runtime.Types.Extensions.Inter
 
 export type TerminalSessionSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   userId?: boolean
   name?: boolean
   sessionId?: boolean
@@ -752,7 +790,7 @@ export type TerminalSessionSelectScalar = {
   deletedBy?: boolean
 }
 
-export type TerminalSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "name" | "sessionId" | "isActive" | "lastActiveAt" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["terminalSession"]>
+export type TerminalSessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "name" | "sessionId" | "isActive" | "lastActiveAt" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["terminalSession"]>
 export type TerminalSessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -770,6 +808,10 @@ export type $TerminalSessionPayload<ExtArgs extends runtime.Types.Extensions.Int
      * 记录ID
      */
     id: number
+    /**
+     * 租户ID
+     */
+    tenantId: number
     /**
      * 用户ID
      */
@@ -1185,6 +1227,7 @@ export interface Prisma__TerminalSessionClient<T, Null = never, ExtArgs extends 
  */
 export interface TerminalSessionFieldRefs {
   readonly id: Prisma.FieldRef<"TerminalSession", 'Int'>
+  readonly tenantId: Prisma.FieldRef<"TerminalSession", 'Int'>
   readonly userId: Prisma.FieldRef<"TerminalSession", 'Int'>
   readonly name: Prisma.FieldRef<"TerminalSession", 'String'>
   readonly sessionId: Prisma.FieldRef<"TerminalSession", 'String'>

@@ -28,16 +28,19 @@ export type AggregateSession = {
 
 export type SessionAvgAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
 }
 
 export type SessionSumAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
 }
 
 export type SessionMinAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
   refreshTokenHash: string | null
   deviceId: string | null
@@ -51,6 +54,7 @@ export type SessionMinAggregateOutputType = {
 
 export type SessionMaxAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
   refreshTokenHash: string | null
   deviceId: string | null
@@ -64,6 +68,7 @@ export type SessionMaxAggregateOutputType = {
 
 export type SessionCountAggregateOutputType = {
   id: number
+  tenantId: number
   userId: number
   refreshTokenHash: number
   deviceId: number
@@ -79,16 +84,19 @@ export type SessionCountAggregateOutputType = {
 
 export type SessionAvgAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
 }
 
 export type SessionSumAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
 }
 
 export type SessionMinAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   refreshTokenHash?: true
   deviceId?: true
@@ -102,6 +110,7 @@ export type SessionMinAggregateInputType = {
 
 export type SessionMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   refreshTokenHash?: true
   deviceId?: true
@@ -115,6 +124,7 @@ export type SessionMaxAggregateInputType = {
 
 export type SessionCountAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   refreshTokenHash?: true
   deviceId?: true
@@ -215,6 +225,7 @@ export type SessionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type SessionGroupByOutputType = {
   id: number
+  tenantId: number
   userId: number
   refreshTokenHash: string | null
   deviceId: string | null
@@ -251,6 +262,7 @@ export type SessionWhereInput = {
   OR?: Prisma.SessionWhereInput[]
   NOT?: Prisma.SessionWhereInput | Prisma.SessionWhereInput[]
   id?: Prisma.IntFilter<"Session"> | number
+  tenantId?: Prisma.IntFilter<"Session"> | number
   userId?: Prisma.IntFilter<"Session"> | number
   refreshTokenHash?: Prisma.StringNullableFilter<"Session"> | string | null
   deviceId?: Prisma.StringNullableFilter<"Session"> | string | null
@@ -265,6 +277,7 @@ export type SessionWhereInput = {
 
 export type SessionOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   refreshTokenHash?: Prisma.SortOrderInput | Prisma.SortOrder
   deviceId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -283,6 +296,7 @@ export type SessionWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.SessionWhereInput | Prisma.SessionWhereInput[]
   OR?: Prisma.SessionWhereInput[]
   NOT?: Prisma.SessionWhereInput | Prisma.SessionWhereInput[]
+  tenantId?: Prisma.IntFilter<"Session"> | number
   userId?: Prisma.IntFilter<"Session"> | number
   refreshTokenHash?: Prisma.StringNullableFilter<"Session"> | string | null
   deviceId?: Prisma.StringNullableFilter<"Session"> | string | null
@@ -297,6 +311,7 @@ export type SessionWhereUniqueInput = Prisma.AtLeast<{
 
 export type SessionOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   refreshTokenHash?: Prisma.SortOrderInput | Prisma.SortOrder
   deviceId?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -318,6 +333,7 @@ export type SessionScalarWhereWithAggregatesInput = {
   OR?: Prisma.SessionScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SessionScalarWhereWithAggregatesInput | Prisma.SessionScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Session"> | number
+  tenantId?: Prisma.IntWithAggregatesFilter<"Session"> | number
   userId?: Prisma.IntWithAggregatesFilter<"Session"> | number
   refreshTokenHash?: Prisma.StringNullableWithAggregatesFilter<"Session"> | string | null
   deviceId?: Prisma.StringNullableWithAggregatesFilter<"Session"> | string | null
@@ -330,6 +346,7 @@ export type SessionScalarWhereWithAggregatesInput = {
 }
 
 export type SessionCreateInput = {
+  tenantId: number
   refreshTokenHash?: string | null
   deviceId?: string | null
   ip?: string | null
@@ -343,6 +360,7 @@ export type SessionCreateInput = {
 
 export type SessionUncheckedCreateInput = {
   id?: number
+  tenantId: number
   userId: number
   refreshTokenHash?: string | null
   deviceId?: string | null
@@ -355,6 +373,7 @@ export type SessionUncheckedCreateInput = {
 }
 
 export type SessionUpdateInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   refreshTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -368,6 +387,7 @@ export type SessionUpdateInput = {
 
 export type SessionUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   refreshTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -381,6 +401,7 @@ export type SessionUncheckedUpdateInput = {
 
 export type SessionCreateManyInput = {
   id?: number
+  tenantId: number
   userId: number
   refreshTokenHash?: string | null
   deviceId?: string | null
@@ -393,6 +414,7 @@ export type SessionCreateManyInput = {
 }
 
 export type SessionUpdateManyMutationInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   refreshTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -405,6 +427,7 @@ export type SessionUpdateManyMutationInput = {
 
 export type SessionUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.IntFieldUpdateOperationsInput | number
   refreshTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -434,6 +457,7 @@ export type SessionOrderByRelevanceInput = {
 
 export type SessionCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   refreshTokenHash?: Prisma.SortOrder
   deviceId?: Prisma.SortOrder
@@ -447,11 +471,13 @@ export type SessionCountOrderByAggregateInput = {
 
 export type SessionAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
 export type SessionMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   refreshTokenHash?: Prisma.SortOrder
   deviceId?: Prisma.SortOrder
@@ -465,6 +491,7 @@ export type SessionMaxOrderByAggregateInput = {
 
 export type SessionMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   refreshTokenHash?: Prisma.SortOrder
   deviceId?: Prisma.SortOrder
@@ -478,6 +505,7 @@ export type SessionMinOrderByAggregateInput = {
 
 export type SessionSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -524,6 +552,7 @@ export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type SessionCreateWithoutUserInput = {
+  tenantId: number
   refreshTokenHash?: string | null
   deviceId?: string | null
   ip?: string | null
@@ -536,6 +565,7 @@ export type SessionCreateWithoutUserInput = {
 
 export type SessionUncheckedCreateWithoutUserInput = {
   id?: number
+  tenantId: number
   refreshTokenHash?: string | null
   deviceId?: string | null
   ip?: string | null
@@ -577,6 +607,7 @@ export type SessionScalarWhereInput = {
   OR?: Prisma.SessionScalarWhereInput[]
   NOT?: Prisma.SessionScalarWhereInput | Prisma.SessionScalarWhereInput[]
   id?: Prisma.IntFilter<"Session"> | number
+  tenantId?: Prisma.IntFilter<"Session"> | number
   userId?: Prisma.IntFilter<"Session"> | number
   refreshTokenHash?: Prisma.StringNullableFilter<"Session"> | string | null
   deviceId?: Prisma.StringNullableFilter<"Session"> | string | null
@@ -590,6 +621,7 @@ export type SessionScalarWhereInput = {
 
 export type SessionCreateManyUserInput = {
   id?: number
+  tenantId: number
   refreshTokenHash?: string | null
   deviceId?: string | null
   ip?: string | null
@@ -601,6 +633,7 @@ export type SessionCreateManyUserInput = {
 }
 
 export type SessionUpdateWithoutUserInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   refreshTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -613,6 +646,7 @@ export type SessionUpdateWithoutUserInput = {
 
 export type SessionUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   refreshTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -625,6 +659,7 @@ export type SessionUncheckedUpdateWithoutUserInput = {
 
 export type SessionUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   refreshTokenHash?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   deviceId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -639,6 +674,7 @@ export type SessionUncheckedUpdateManyWithoutUserInput = {
 
 export type SessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   userId?: boolean
   refreshTokenHash?: boolean
   deviceId?: boolean
@@ -655,6 +691,7 @@ export type SessionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 
 export type SessionSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   userId?: boolean
   refreshTokenHash?: boolean
   deviceId?: boolean
@@ -666,7 +703,7 @@ export type SessionSelectScalar = {
   createdAt?: boolean
 }
 
-export type SessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "refreshTokenHash" | "deviceId" | "ip" | "userAgent" | "issuedAt" | "expiresAt" | "revokedAt" | "createdAt", ExtArgs["result"]["session"]>
+export type SessionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "refreshTokenHash" | "deviceId" | "ip" | "userAgent" | "issuedAt" | "expiresAt" | "revokedAt" | "createdAt", ExtArgs["result"]["session"]>
 export type SessionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
@@ -684,6 +721,10 @@ export type $SessionPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
      * 会话ID
      */
     id: number
+    /**
+     * 租户ID
+     */
+    tenantId: number
     /**
      * 用户ID
      */
@@ -1091,6 +1132,7 @@ export interface Prisma__SessionClient<T, Null = never, ExtArgs extends runtime.
  */
 export interface SessionFieldRefs {
   readonly id: Prisma.FieldRef<"Session", 'Int'>
+  readonly tenantId: Prisma.FieldRef<"Session", 'Int'>
   readonly userId: Prisma.FieldRef<"Session", 'Int'>
   readonly refreshTokenHash: Prisma.FieldRef<"Session", 'String'>
   readonly deviceId: Prisma.FieldRef<"Session", 'String'>

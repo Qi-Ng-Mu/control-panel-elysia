@@ -28,6 +28,7 @@ export type AggregateMenu = {
 
 export type MenuAvgAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   order: number | null
   parentId: number | null
   permissionId: number | null
@@ -38,6 +39,7 @@ export type MenuAvgAggregateOutputType = {
 
 export type MenuSumAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   order: number | null
   parentId: number | null
   permissionId: number | null
@@ -48,6 +50,7 @@ export type MenuSumAggregateOutputType = {
 
 export type MenuMinAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   name: string | null
   path: string | null
   component: string | null
@@ -68,6 +71,7 @@ export type MenuMinAggregateOutputType = {
 
 export type MenuMaxAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   name: string | null
   path: string | null
   component: string | null
@@ -88,6 +92,7 @@ export type MenuMaxAggregateOutputType = {
 
 export type MenuCountAggregateOutputType = {
   id: number
+  tenantId: number
   name: number
   path: number
   component: number
@@ -110,6 +115,7 @@ export type MenuCountAggregateOutputType = {
 
 export type MenuAvgAggregateInputType = {
   id?: true
+  tenantId?: true
   order?: true
   parentId?: true
   permissionId?: true
@@ -120,6 +126,7 @@ export type MenuAvgAggregateInputType = {
 
 export type MenuSumAggregateInputType = {
   id?: true
+  tenantId?: true
   order?: true
   parentId?: true
   permissionId?: true
@@ -130,6 +137,7 @@ export type MenuSumAggregateInputType = {
 
 export type MenuMinAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   path?: true
   component?: true
@@ -150,6 +158,7 @@ export type MenuMinAggregateInputType = {
 
 export type MenuMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   path?: true
   component?: true
@@ -170,6 +179,7 @@ export type MenuMaxAggregateInputType = {
 
 export type MenuCountAggregateInputType = {
   id?: true
+  tenantId?: true
   name?: true
   path?: true
   component?: true
@@ -277,6 +287,7 @@ export type MenuGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalArg
 
 export type MenuGroupByOutputType = {
   id: number
+  tenantId: number
   name: string
   path: string
   component: string
@@ -320,6 +331,7 @@ export type MenuWhereInput = {
   OR?: Prisma.MenuWhereInput[]
   NOT?: Prisma.MenuWhereInput | Prisma.MenuWhereInput[]
   id?: Prisma.IntFilter<"Menu"> | number
+  tenantId?: Prisma.IntFilter<"Menu"> | number
   name?: Prisma.StringFilter<"Menu"> | string
   path?: Prisma.StringFilter<"Menu"> | string
   component?: Prisma.StringFilter<"Menu"> | string
@@ -336,6 +348,7 @@ export type MenuWhereInput = {
   updatedBy?: Prisma.IntNullableFilter<"Menu"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Menu"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"Menu"> | number | null
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   parent?: Prisma.XOR<Prisma.MenuNullableScalarRelationFilter, Prisma.MenuWhereInput> | null
   children?: Prisma.MenuListRelationFilter
   permission?: Prisma.XOR<Prisma.PermissionNullableScalarRelationFilter, Prisma.PermissionWhereInput> | null
@@ -343,6 +356,7 @@ export type MenuWhereInput = {
 
 export type MenuOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
   component?: Prisma.SortOrder
@@ -359,6 +373,7 @@ export type MenuOrderByWithRelationInput = {
   updatedBy?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   deletedBy?: Prisma.SortOrderInput | Prisma.SortOrder
+  tenant?: Prisma.TenantOrderByWithRelationInput
   parent?: Prisma.MenuOrderByWithRelationInput
   children?: Prisma.MenuOrderByRelationAggregateInput
   permission?: Prisma.PermissionOrderByWithRelationInput
@@ -367,10 +382,11 @@ export type MenuOrderByWithRelationInput = {
 
 export type MenuWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  path_deletedAt?: Prisma.MenuPathDeletedAtCompoundUniqueInput
+  tenantId_path_deletedAt?: Prisma.MenuTenantIdPathDeletedAtCompoundUniqueInput
   AND?: Prisma.MenuWhereInput | Prisma.MenuWhereInput[]
   OR?: Prisma.MenuWhereInput[]
   NOT?: Prisma.MenuWhereInput | Prisma.MenuWhereInput[]
+  tenantId?: Prisma.IntFilter<"Menu"> | number
   name?: Prisma.StringFilter<"Menu"> | string
   path?: Prisma.StringFilter<"Menu"> | string
   component?: Prisma.StringFilter<"Menu"> | string
@@ -387,13 +403,15 @@ export type MenuWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.IntNullableFilter<"Menu"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"Menu"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"Menu"> | number | null
+  tenant?: Prisma.XOR<Prisma.TenantScalarRelationFilter, Prisma.TenantWhereInput>
   parent?: Prisma.XOR<Prisma.MenuNullableScalarRelationFilter, Prisma.MenuWhereInput> | null
   children?: Prisma.MenuListRelationFilter
   permission?: Prisma.XOR<Prisma.PermissionNullableScalarRelationFilter, Prisma.PermissionWhereInput> | null
-}, "id" | "path_deletedAt">
+}, "id" | "tenantId_path_deletedAt">
 
 export type MenuOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
   component?: Prisma.SortOrder
@@ -422,6 +440,7 @@ export type MenuScalarWhereWithAggregatesInput = {
   OR?: Prisma.MenuScalarWhereWithAggregatesInput[]
   NOT?: Prisma.MenuScalarWhereWithAggregatesInput | Prisma.MenuScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"Menu"> | number
+  tenantId?: Prisma.IntWithAggregatesFilter<"Menu"> | number
   name?: Prisma.StringWithAggregatesFilter<"Menu"> | string
   path?: Prisma.StringWithAggregatesFilter<"Menu"> | string
   component?: Prisma.StringWithAggregatesFilter<"Menu"> | string
@@ -455,6 +474,7 @@ export type MenuCreateInput = {
   updatedBy?: number | null
   deletedAt?: Date | string | null
   deletedBy?: number | null
+  tenant: Prisma.TenantCreateNestedOneWithoutMenusInput
   parent?: Prisma.MenuCreateNestedOneWithoutChildrenInput
   children?: Prisma.MenuCreateNestedManyWithoutParentInput
   permission?: Prisma.PermissionCreateNestedOneWithoutMenusInput
@@ -462,6 +482,7 @@ export type MenuCreateInput = {
 
 export type MenuUncheckedCreateInput = {
   id?: number
+  tenantId: number
   name: string
   path: string
   component: string
@@ -496,6 +517,7 @@ export type MenuUpdateInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutMenusNestedInput
   parent?: Prisma.MenuUpdateOneWithoutChildrenNestedInput
   children?: Prisma.MenuUpdateManyWithoutParentNestedInput
   permission?: Prisma.PermissionUpdateOneWithoutMenusNestedInput
@@ -503,6 +525,7 @@ export type MenuUpdateInput = {
 
 export type MenuUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   component?: Prisma.StringFieldUpdateOperationsInput | string
@@ -524,6 +547,7 @@ export type MenuUncheckedUpdateInput = {
 
 export type MenuCreateManyInput = {
   id?: number
+  tenantId: number
   name: string
   path: string
   component: string
@@ -561,6 +585,7 @@ export type MenuUpdateManyMutationInput = {
 
 export type MenuUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   component?: Prisma.StringFieldUpdateOperationsInput | string
@@ -600,13 +625,15 @@ export type MenuOrderByRelevanceInput = {
   search: string
 }
 
-export type MenuPathDeletedAtCompoundUniqueInput = {
+export type MenuTenantIdPathDeletedAtCompoundUniqueInput = {
+  tenantId: number
   path: string
   deletedAt: Date | string
 }
 
 export type MenuCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
   component?: Prisma.SortOrder
@@ -627,6 +654,7 @@ export type MenuCountOrderByAggregateInput = {
 
 export type MenuAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   permissionId?: Prisma.SortOrder
@@ -637,6 +665,7 @@ export type MenuAvgOrderByAggregateInput = {
 
 export type MenuMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
   component?: Prisma.SortOrder
@@ -657,6 +686,7 @@ export type MenuMaxOrderByAggregateInput = {
 
 export type MenuMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   path?: Prisma.SortOrder
   component?: Prisma.SortOrder
@@ -677,12 +707,55 @@ export type MenuMinOrderByAggregateInput = {
 
 export type MenuSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   order?: Prisma.SortOrder
   parentId?: Prisma.SortOrder
   permissionId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
+}
+
+export type MenuCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.MenuCreateWithoutTenantInput, Prisma.MenuUncheckedCreateWithoutTenantInput> | Prisma.MenuCreateWithoutTenantInput[] | Prisma.MenuUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.MenuCreateOrConnectWithoutTenantInput | Prisma.MenuCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.MenuCreateManyTenantInputEnvelope
+  connect?: Prisma.MenuWhereUniqueInput | Prisma.MenuWhereUniqueInput[]
+}
+
+export type MenuUncheckedCreateNestedManyWithoutTenantInput = {
+  create?: Prisma.XOR<Prisma.MenuCreateWithoutTenantInput, Prisma.MenuUncheckedCreateWithoutTenantInput> | Prisma.MenuCreateWithoutTenantInput[] | Prisma.MenuUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.MenuCreateOrConnectWithoutTenantInput | Prisma.MenuCreateOrConnectWithoutTenantInput[]
+  createMany?: Prisma.MenuCreateManyTenantInputEnvelope
+  connect?: Prisma.MenuWhereUniqueInput | Prisma.MenuWhereUniqueInput[]
+}
+
+export type MenuUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.MenuCreateWithoutTenantInput, Prisma.MenuUncheckedCreateWithoutTenantInput> | Prisma.MenuCreateWithoutTenantInput[] | Prisma.MenuUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.MenuCreateOrConnectWithoutTenantInput | Prisma.MenuCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.MenuUpsertWithWhereUniqueWithoutTenantInput | Prisma.MenuUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.MenuCreateManyTenantInputEnvelope
+  set?: Prisma.MenuWhereUniqueInput | Prisma.MenuWhereUniqueInput[]
+  disconnect?: Prisma.MenuWhereUniqueInput | Prisma.MenuWhereUniqueInput[]
+  delete?: Prisma.MenuWhereUniqueInput | Prisma.MenuWhereUniqueInput[]
+  connect?: Prisma.MenuWhereUniqueInput | Prisma.MenuWhereUniqueInput[]
+  update?: Prisma.MenuUpdateWithWhereUniqueWithoutTenantInput | Prisma.MenuUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.MenuUpdateManyWithWhereWithoutTenantInput | Prisma.MenuUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.MenuScalarWhereInput | Prisma.MenuScalarWhereInput[]
+}
+
+export type MenuUncheckedUpdateManyWithoutTenantNestedInput = {
+  create?: Prisma.XOR<Prisma.MenuCreateWithoutTenantInput, Prisma.MenuUncheckedCreateWithoutTenantInput> | Prisma.MenuCreateWithoutTenantInput[] | Prisma.MenuUncheckedCreateWithoutTenantInput[]
+  connectOrCreate?: Prisma.MenuCreateOrConnectWithoutTenantInput | Prisma.MenuCreateOrConnectWithoutTenantInput[]
+  upsert?: Prisma.MenuUpsertWithWhereUniqueWithoutTenantInput | Prisma.MenuUpsertWithWhereUniqueWithoutTenantInput[]
+  createMany?: Prisma.MenuCreateManyTenantInputEnvelope
+  set?: Prisma.MenuWhereUniqueInput | Prisma.MenuWhereUniqueInput[]
+  disconnect?: Prisma.MenuWhereUniqueInput | Prisma.MenuWhereUniqueInput[]
+  delete?: Prisma.MenuWhereUniqueInput | Prisma.MenuWhereUniqueInput[]
+  connect?: Prisma.MenuWhereUniqueInput | Prisma.MenuWhereUniqueInput[]
+  update?: Prisma.MenuUpdateWithWhereUniqueWithoutTenantInput | Prisma.MenuUpdateWithWhereUniqueWithoutTenantInput[]
+  updateMany?: Prisma.MenuUpdateManyWithWhereWithoutTenantInput | Prisma.MenuUpdateManyWithWhereWithoutTenantInput[]
+  deleteMany?: Prisma.MenuScalarWhereInput | Prisma.MenuScalarWhereInput[]
 }
 
 export type MenuCreateNestedManyWithoutPermissionInput = {
@@ -785,7 +858,7 @@ export type MenuUncheckedUpdateManyWithoutParentNestedInput = {
   deleteMany?: Prisma.MenuScalarWhereInput | Prisma.MenuScalarWhereInput[]
 }
 
-export type MenuCreateWithoutPermissionInput = {
+export type MenuCreateWithoutTenantInput = {
   name: string
   path: string
   component: string
@@ -802,10 +875,103 @@ export type MenuCreateWithoutPermissionInput = {
   deletedBy?: number | null
   parent?: Prisma.MenuCreateNestedOneWithoutChildrenInput
   children?: Prisma.MenuCreateNestedManyWithoutParentInput
+  permission?: Prisma.PermissionCreateNestedOneWithoutMenusInput
+}
+
+export type MenuUncheckedCreateWithoutTenantInput = {
+  id?: number
+  name: string
+  path: string
+  component: string
+  icon?: string | null
+  order?: number
+  isHidden?: boolean
+  isActive?: boolean
+  isDirectory?: boolean
+  parentId?: number | null
+  permissionId?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy?: number | null
+  updatedBy?: number | null
+  deletedAt?: Date | string | null
+  deletedBy?: number | null
+  children?: Prisma.MenuUncheckedCreateNestedManyWithoutParentInput
+}
+
+export type MenuCreateOrConnectWithoutTenantInput = {
+  where: Prisma.MenuWhereUniqueInput
+  create: Prisma.XOR<Prisma.MenuCreateWithoutTenantInput, Prisma.MenuUncheckedCreateWithoutTenantInput>
+}
+
+export type MenuCreateManyTenantInputEnvelope = {
+  data: Prisma.MenuCreateManyTenantInput | Prisma.MenuCreateManyTenantInput[]
+  skipDuplicates?: boolean
+}
+
+export type MenuUpsertWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.MenuWhereUniqueInput
+  update: Prisma.XOR<Prisma.MenuUpdateWithoutTenantInput, Prisma.MenuUncheckedUpdateWithoutTenantInput>
+  create: Prisma.XOR<Prisma.MenuCreateWithoutTenantInput, Prisma.MenuUncheckedCreateWithoutTenantInput>
+}
+
+export type MenuUpdateWithWhereUniqueWithoutTenantInput = {
+  where: Prisma.MenuWhereUniqueInput
+  data: Prisma.XOR<Prisma.MenuUpdateWithoutTenantInput, Prisma.MenuUncheckedUpdateWithoutTenantInput>
+}
+
+export type MenuUpdateManyWithWhereWithoutTenantInput = {
+  where: Prisma.MenuScalarWhereInput
+  data: Prisma.XOR<Prisma.MenuUpdateManyMutationInput, Prisma.MenuUncheckedUpdateManyWithoutTenantInput>
+}
+
+export type MenuScalarWhereInput = {
+  AND?: Prisma.MenuScalarWhereInput | Prisma.MenuScalarWhereInput[]
+  OR?: Prisma.MenuScalarWhereInput[]
+  NOT?: Prisma.MenuScalarWhereInput | Prisma.MenuScalarWhereInput[]
+  id?: Prisma.IntFilter<"Menu"> | number
+  tenantId?: Prisma.IntFilter<"Menu"> | number
+  name?: Prisma.StringFilter<"Menu"> | string
+  path?: Prisma.StringFilter<"Menu"> | string
+  component?: Prisma.StringFilter<"Menu"> | string
+  icon?: Prisma.StringNullableFilter<"Menu"> | string | null
+  order?: Prisma.IntFilter<"Menu"> | number
+  isHidden?: Prisma.BoolFilter<"Menu"> | boolean
+  isActive?: Prisma.BoolFilter<"Menu"> | boolean
+  isDirectory?: Prisma.BoolFilter<"Menu"> | boolean
+  parentId?: Prisma.IntNullableFilter<"Menu"> | number | null
+  permissionId?: Prisma.IntNullableFilter<"Menu"> | number | null
+  createdAt?: Prisma.DateTimeFilter<"Menu"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Menu"> | Date | string
+  createdBy?: Prisma.IntNullableFilter<"Menu"> | number | null
+  updatedBy?: Prisma.IntNullableFilter<"Menu"> | number | null
+  deletedAt?: Prisma.DateTimeNullableFilter<"Menu"> | Date | string | null
+  deletedBy?: Prisma.IntNullableFilter<"Menu"> | number | null
+}
+
+export type MenuCreateWithoutPermissionInput = {
+  name: string
+  path: string
+  component: string
+  icon?: string | null
+  order?: number
+  isHidden?: boolean
+  isActive?: boolean
+  isDirectory?: boolean
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy?: number | null
+  updatedBy?: number | null
+  deletedAt?: Date | string | null
+  deletedBy?: number | null
+  tenant: Prisma.TenantCreateNestedOneWithoutMenusInput
+  parent?: Prisma.MenuCreateNestedOneWithoutChildrenInput
+  children?: Prisma.MenuCreateNestedManyWithoutParentInput
 }
 
 export type MenuUncheckedCreateWithoutPermissionInput = {
   id?: number
+  tenantId: number
   name: string
   path: string
   component: string
@@ -850,29 +1016,6 @@ export type MenuUpdateManyWithWhereWithoutPermissionInput = {
   data: Prisma.XOR<Prisma.MenuUpdateManyMutationInput, Prisma.MenuUncheckedUpdateManyWithoutPermissionInput>
 }
 
-export type MenuScalarWhereInput = {
-  AND?: Prisma.MenuScalarWhereInput | Prisma.MenuScalarWhereInput[]
-  OR?: Prisma.MenuScalarWhereInput[]
-  NOT?: Prisma.MenuScalarWhereInput | Prisma.MenuScalarWhereInput[]
-  id?: Prisma.IntFilter<"Menu"> | number
-  name?: Prisma.StringFilter<"Menu"> | string
-  path?: Prisma.StringFilter<"Menu"> | string
-  component?: Prisma.StringFilter<"Menu"> | string
-  icon?: Prisma.StringNullableFilter<"Menu"> | string | null
-  order?: Prisma.IntFilter<"Menu"> | number
-  isHidden?: Prisma.BoolFilter<"Menu"> | boolean
-  isActive?: Prisma.BoolFilter<"Menu"> | boolean
-  isDirectory?: Prisma.BoolFilter<"Menu"> | boolean
-  parentId?: Prisma.IntNullableFilter<"Menu"> | number | null
-  permissionId?: Prisma.IntNullableFilter<"Menu"> | number | null
-  createdAt?: Prisma.DateTimeFilter<"Menu"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Menu"> | Date | string
-  createdBy?: Prisma.IntNullableFilter<"Menu"> | number | null
-  updatedBy?: Prisma.IntNullableFilter<"Menu"> | number | null
-  deletedAt?: Prisma.DateTimeNullableFilter<"Menu"> | Date | string | null
-  deletedBy?: Prisma.IntNullableFilter<"Menu"> | number | null
-}
-
 export type MenuCreateWithoutChildrenInput = {
   name: string
   path: string
@@ -888,12 +1031,14 @@ export type MenuCreateWithoutChildrenInput = {
   updatedBy?: number | null
   deletedAt?: Date | string | null
   deletedBy?: number | null
+  tenant: Prisma.TenantCreateNestedOneWithoutMenusInput
   parent?: Prisma.MenuCreateNestedOneWithoutChildrenInput
   permission?: Prisma.PermissionCreateNestedOneWithoutMenusInput
 }
 
 export type MenuUncheckedCreateWithoutChildrenInput = {
   id?: number
+  tenantId: number
   name: string
   path: string
   component: string
@@ -932,12 +1077,14 @@ export type MenuCreateWithoutParentInput = {
   updatedBy?: number | null
   deletedAt?: Date | string | null
   deletedBy?: number | null
+  tenant: Prisma.TenantCreateNestedOneWithoutMenusInput
   children?: Prisma.MenuCreateNestedManyWithoutParentInput
   permission?: Prisma.PermissionCreateNestedOneWithoutMenusInput
 }
 
 export type MenuUncheckedCreateWithoutParentInput = {
   id?: number
+  tenantId: number
   name: string
   path: string
   component: string
@@ -992,12 +1139,14 @@ export type MenuUpdateWithoutChildrenInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutMenusNestedInput
   parent?: Prisma.MenuUpdateOneWithoutChildrenNestedInput
   permission?: Prisma.PermissionUpdateOneWithoutMenusNestedInput
 }
 
 export type MenuUncheckedUpdateWithoutChildrenInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   component?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1032,8 +1181,90 @@ export type MenuUpdateManyWithWhereWithoutParentInput = {
   data: Prisma.XOR<Prisma.MenuUpdateManyMutationInput, Prisma.MenuUncheckedUpdateManyWithoutParentInput>
 }
 
+export type MenuCreateManyTenantInput = {
+  id?: number
+  name: string
+  path: string
+  component: string
+  icon?: string | null
+  order?: number
+  isHidden?: boolean
+  isActive?: boolean
+  isDirectory?: boolean
+  parentId?: number | null
+  permissionId?: number | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  createdBy?: number | null
+  updatedBy?: number | null
+  deletedAt?: Date | string | null
+  deletedBy?: number | null
+}
+
+export type MenuUpdateWithoutTenantInput = {
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  component?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDirectory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  parent?: Prisma.MenuUpdateOneWithoutChildrenNestedInput
+  children?: Prisma.MenuUpdateManyWithoutParentNestedInput
+  permission?: Prisma.PermissionUpdateOneWithoutMenusNestedInput
+}
+
+export type MenuUncheckedUpdateWithoutTenantInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  component?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDirectory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permissionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  children?: Prisma.MenuUncheckedUpdateManyWithoutParentNestedInput
+}
+
+export type MenuUncheckedUpdateManyWithoutTenantInput = {
+  id?: Prisma.IntFieldUpdateOperationsInput | number
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  component?: Prisma.StringFieldUpdateOperationsInput | string
+  icon?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  order?: Prisma.IntFieldUpdateOperationsInput | number
+  isHidden?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isDirectory?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  parentId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  permissionId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+}
+
 export type MenuCreateManyPermissionInput = {
   id?: number
+  tenantId: number
   name: string
   path: string
   component: string
@@ -1066,12 +1297,14 @@ export type MenuUpdateWithoutPermissionInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutMenusNestedInput
   parent?: Prisma.MenuUpdateOneWithoutChildrenNestedInput
   children?: Prisma.MenuUpdateManyWithoutParentNestedInput
 }
 
 export type MenuUncheckedUpdateWithoutPermissionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   component?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1092,6 +1325,7 @@ export type MenuUncheckedUpdateWithoutPermissionInput = {
 
 export type MenuUncheckedUpdateManyWithoutPermissionInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   component?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1111,6 +1345,7 @@ export type MenuUncheckedUpdateManyWithoutPermissionInput = {
 
 export type MenuCreateManyParentInput = {
   id?: number
+  tenantId: number
   name: string
   path: string
   component: string
@@ -1143,12 +1378,14 @@ export type MenuUpdateWithoutParentInput = {
   updatedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   deletedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   deletedBy?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  tenant?: Prisma.TenantUpdateOneRequiredWithoutMenusNestedInput
   children?: Prisma.MenuUpdateManyWithoutParentNestedInput
   permission?: Prisma.PermissionUpdateOneWithoutMenusNestedInput
 }
 
 export type MenuUncheckedUpdateWithoutParentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   component?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1169,6 +1406,7 @@ export type MenuUncheckedUpdateWithoutParentInput = {
 
 export type MenuUncheckedUpdateManyWithoutParentInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   name?: Prisma.StringFieldUpdateOperationsInput | string
   path?: Prisma.StringFieldUpdateOperationsInput | string
   component?: Prisma.StringFieldUpdateOperationsInput | string
@@ -1219,6 +1457,7 @@ export type MenuCountOutputTypeCountChildrenArgs<ExtArgs extends runtime.Types.E
 
 export type MenuSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   path?: boolean
   component?: boolean
@@ -1235,6 +1474,7 @@ export type MenuSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   updatedBy?: boolean
   deletedAt?: boolean
   deletedBy?: boolean
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.Menu$parentArgs<ExtArgs>
   children?: boolean | Prisma.Menu$childrenArgs<ExtArgs>
   permission?: boolean | Prisma.Menu$permissionArgs<ExtArgs>
@@ -1245,6 +1485,7 @@ export type MenuSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
 
 export type MenuSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   name?: boolean
   path?: boolean
   component?: boolean
@@ -1263,8 +1504,9 @@ export type MenuSelectScalar = {
   deletedBy?: boolean
 }
 
-export type MenuOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "path" | "component" | "icon" | "order" | "isHidden" | "isActive" | "isDirectory" | "parentId" | "permissionId" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["menu"]>
+export type MenuOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "name" | "path" | "component" | "icon" | "order" | "isHidden" | "isActive" | "isDirectory" | "parentId" | "permissionId" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["menu"]>
 export type MenuInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  tenant?: boolean | Prisma.TenantDefaultArgs<ExtArgs>
   parent?: boolean | Prisma.Menu$parentArgs<ExtArgs>
   children?: boolean | Prisma.Menu$childrenArgs<ExtArgs>
   permission?: boolean | Prisma.Menu$permissionArgs<ExtArgs>
@@ -1274,6 +1516,10 @@ export type MenuInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type $MenuPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Menu"
   objects: {
+    /**
+     * 租户
+     */
+    tenant: Prisma.$TenantPayload<ExtArgs>
     /**
      * 父菜单
      */
@@ -1292,6 +1538,10 @@ export type $MenuPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
      * 菜单ID
      */
     id: number
+    /**
+     * 租户ID
+     */
+    tenantId: number
     /**
      * 菜单名称
      */
@@ -1696,6 +1946,7 @@ readonly fields: MenuFieldRefs;
  */
 export interface Prisma__MenuClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  tenant<T extends Prisma.TenantDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.TenantDefaultArgs<ExtArgs>>): Prisma.Prisma__TenantClient<runtime.Types.Result.GetResult<Prisma.$TenantPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   parent<T extends Prisma.Menu$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Menu$parentArgs<ExtArgs>>): Prisma.Prisma__MenuClient<runtime.Types.Result.GetResult<Prisma.$MenuPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   children<T extends Prisma.Menu$childrenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Menu$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MenuPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   permission<T extends Prisma.Menu$permissionArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Menu$permissionArgs<ExtArgs>>): Prisma.Prisma__PermissionClient<runtime.Types.Result.GetResult<Prisma.$PermissionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
@@ -1729,6 +1980,7 @@ export interface Prisma__MenuClient<T, Null = never, ExtArgs extends runtime.Typ
  */
 export interface MenuFieldRefs {
   readonly id: Prisma.FieldRef<"Menu", 'Int'>
+  readonly tenantId: Prisma.FieldRef<"Menu", 'Int'>
   readonly name: Prisma.FieldRef<"Menu", 'String'>
   readonly path: Prisma.FieldRef<"Menu", 'String'>
   readonly component: Prisma.FieldRef<"Menu", 'String'>

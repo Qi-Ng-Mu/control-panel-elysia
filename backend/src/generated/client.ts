@@ -29,8 +29,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Users
- * const users = await prisma.user.findMany()
+ * // Fetch zero or more Tenants
+ * const tenants = await prisma.tenant.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -39,6 +39,26 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Tenant
+ * 租户表
+ */
+export type Tenant = Prisma.TenantModel
+/**
+ * Model Department
+ * 部门表
+ */
+export type Department = Prisma.DepartmentModel
+/**
+ * Model Position
+ * 岗位表
+ */
+export type Position = Prisma.PositionModel
+/**
+ * Model UserPosition
+ * 用户岗位关联表
+ */
+export type UserPosition = Prisma.UserPositionModel
 /**
  * Model User
  * 用户表
@@ -94,3 +114,53 @@ export type TerminalSession = Prisma.TerminalSessionModel
  * 操作日志表
  */
 export type OperationLog = Prisma.OperationLogModel
+/**
+ * Model DictionaryGroup
+ * 字典组表
+ */
+export type DictionaryGroup = Prisma.DictionaryGroupModel
+/**
+ * Model DictionaryItem
+ * 字典项表
+ */
+export type DictionaryItem = Prisma.DictionaryItemModel
+/**
+ * Model NoticeTemplate
+ * 通知模板表
+ */
+export type NoticeTemplate = Prisma.NoticeTemplateModel
+/**
+ * Model Notice
+ * 通知表
+ */
+export type Notice = Prisma.NoticeModel
+/**
+ * Model Ticket
+ * 工单表
+ */
+export type Ticket = Prisma.TicketModel
+/**
+ * Model TicketFlow
+ * 工单流程表
+ */
+export type TicketFlow = Prisma.TicketFlowModel
+/**
+ * Model TicketFlowNode
+ * 工单流程节点表
+ */
+export type TicketFlowNode = Prisma.TicketFlowNodeModel
+/**
+ * Model TicketFlowCondition
+ * 工单流程条件表
+ */
+export type TicketFlowCondition = Prisma.TicketFlowConditionModel
+/**
+ * Model TicketFlowInstance
+ * 工单流程实例表
+ */
+export type TicketFlowInstance = Prisma.TicketFlowInstanceModel
+/**
+ * Model TicketFlowInstanceHistory
+ * 工单流程实例历史表
+ */
+export type TicketFlowInstanceHistory = Prisma.TicketFlowInstanceHistoryModel

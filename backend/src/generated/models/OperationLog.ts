@@ -28,16 +28,19 @@ export type AggregateOperationLog = {
 
 export type OperationLogAvgAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
 }
 
 export type OperationLogSumAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
 }
 
 export type OperationLogMinAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
   action: string | null
   targetType: string | null
@@ -49,6 +52,7 @@ export type OperationLogMinAggregateOutputType = {
 
 export type OperationLogMaxAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   userId: number | null
   action: string | null
   targetType: string | null
@@ -60,6 +64,7 @@ export type OperationLogMaxAggregateOutputType = {
 
 export type OperationLogCountAggregateOutputType = {
   id: number
+  tenantId: number
   userId: number
   action: number
   targetType: number
@@ -74,16 +79,19 @@ export type OperationLogCountAggregateOutputType = {
 
 export type OperationLogAvgAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
 }
 
 export type OperationLogSumAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
 }
 
 export type OperationLogMinAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   action?: true
   targetType?: true
@@ -95,6 +103,7 @@ export type OperationLogMinAggregateInputType = {
 
 export type OperationLogMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   action?: true
   targetType?: true
@@ -106,6 +115,7 @@ export type OperationLogMaxAggregateInputType = {
 
 export type OperationLogCountAggregateInputType = {
   id?: true
+  tenantId?: true
   userId?: true
   action?: true
   targetType?: true
@@ -205,6 +215,7 @@ export type OperationLogGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 
 export type OperationLogGroupByOutputType = {
   id: number
+  tenantId: number
   userId: number | null
   action: string
   targetType: string | null
@@ -240,6 +251,7 @@ export type OperationLogWhereInput = {
   OR?: Prisma.OperationLogWhereInput[]
   NOT?: Prisma.OperationLogWhereInput | Prisma.OperationLogWhereInput[]
   id?: Prisma.IntFilter<"OperationLog"> | number
+  tenantId?: Prisma.IntFilter<"OperationLog"> | number
   userId?: Prisma.IntNullableFilter<"OperationLog"> | number | null
   action?: Prisma.StringFilter<"OperationLog"> | string
   targetType?: Prisma.StringNullableFilter<"OperationLog"> | string | null
@@ -253,6 +265,7 @@ export type OperationLogWhereInput = {
 
 export type OperationLogOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   action?: Prisma.SortOrder
   targetType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -270,6 +283,7 @@ export type OperationLogWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.OperationLogWhereInput | Prisma.OperationLogWhereInput[]
   OR?: Prisma.OperationLogWhereInput[]
   NOT?: Prisma.OperationLogWhereInput | Prisma.OperationLogWhereInput[]
+  tenantId?: Prisma.IntFilter<"OperationLog"> | number
   userId?: Prisma.IntNullableFilter<"OperationLog"> | number | null
   action?: Prisma.StringFilter<"OperationLog"> | string
   targetType?: Prisma.StringNullableFilter<"OperationLog"> | string | null
@@ -283,6 +297,7 @@ export type OperationLogWhereUniqueInput = Prisma.AtLeast<{
 
 export type OperationLogOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrderInput | Prisma.SortOrder
   action?: Prisma.SortOrder
   targetType?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -303,6 +318,7 @@ export type OperationLogScalarWhereWithAggregatesInput = {
   OR?: Prisma.OperationLogScalarWhereWithAggregatesInput[]
   NOT?: Prisma.OperationLogScalarWhereWithAggregatesInput | Prisma.OperationLogScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"OperationLog"> | number
+  tenantId?: Prisma.IntWithAggregatesFilter<"OperationLog"> | number
   userId?: Prisma.IntNullableWithAggregatesFilter<"OperationLog"> | number | null
   action?: Prisma.StringWithAggregatesFilter<"OperationLog"> | string
   targetType?: Prisma.StringNullableWithAggregatesFilter<"OperationLog"> | string | null
@@ -314,6 +330,7 @@ export type OperationLogScalarWhereWithAggregatesInput = {
 }
 
 export type OperationLogCreateInput = {
+  tenantId: number
   action: string
   targetType?: string | null
   targetId?: string | null
@@ -326,6 +343,7 @@ export type OperationLogCreateInput = {
 
 export type OperationLogUncheckedCreateInput = {
   id?: number
+  tenantId: number
   userId?: number | null
   action: string
   targetType?: string | null
@@ -337,6 +355,7 @@ export type OperationLogUncheckedCreateInput = {
 }
 
 export type OperationLogUpdateInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   action?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -349,6 +368,7 @@ export type OperationLogUpdateInput = {
 
 export type OperationLogUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   action?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -361,6 +381,7 @@ export type OperationLogUncheckedUpdateInput = {
 
 export type OperationLogCreateManyInput = {
   id?: number
+  tenantId: number
   userId?: number | null
   action: string
   targetType?: string | null
@@ -372,6 +393,7 @@ export type OperationLogCreateManyInput = {
 }
 
 export type OperationLogUpdateManyMutationInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   action?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -383,6 +405,7 @@ export type OperationLogUpdateManyMutationInput = {
 
 export type OperationLogUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   userId?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   action?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -411,6 +434,7 @@ export type OperationLogOrderByRelevanceInput = {
 
 export type OperationLogCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   action?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
@@ -423,11 +447,13 @@ export type OperationLogCountOrderByAggregateInput = {
 
 export type OperationLogAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
 export type OperationLogMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   action?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
@@ -439,6 +465,7 @@ export type OperationLogMaxOrderByAggregateInput = {
 
 export type OperationLogMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   action?: Prisma.SortOrder
   targetType?: Prisma.SortOrder
@@ -450,6 +477,7 @@ export type OperationLogMinOrderByAggregateInput = {
 
 export type OperationLogSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
 }
 
@@ -496,6 +524,7 @@ export type OperationLogUncheckedUpdateManyWithoutUserNestedInput = {
 }
 
 export type OperationLogCreateWithoutUserInput = {
+  tenantId: number
   action: string
   targetType?: string | null
   targetId?: string | null
@@ -507,6 +536,7 @@ export type OperationLogCreateWithoutUserInput = {
 
 export type OperationLogUncheckedCreateWithoutUserInput = {
   id?: number
+  tenantId: number
   action: string
   targetType?: string | null
   targetId?: string | null
@@ -547,6 +577,7 @@ export type OperationLogScalarWhereInput = {
   OR?: Prisma.OperationLogScalarWhereInput[]
   NOT?: Prisma.OperationLogScalarWhereInput | Prisma.OperationLogScalarWhereInput[]
   id?: Prisma.IntFilter<"OperationLog"> | number
+  tenantId?: Prisma.IntFilter<"OperationLog"> | number
   userId?: Prisma.IntNullableFilter<"OperationLog"> | number | null
   action?: Prisma.StringFilter<"OperationLog"> | string
   targetType?: Prisma.StringNullableFilter<"OperationLog"> | string | null
@@ -559,6 +590,7 @@ export type OperationLogScalarWhereInput = {
 
 export type OperationLogCreateManyUserInput = {
   id?: number
+  tenantId: number
   action: string
   targetType?: string | null
   targetId?: string | null
@@ -569,6 +601,7 @@ export type OperationLogCreateManyUserInput = {
 }
 
 export type OperationLogUpdateWithoutUserInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   action?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -580,6 +613,7 @@ export type OperationLogUpdateWithoutUserInput = {
 
 export type OperationLogUncheckedUpdateWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   action?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -591,6 +625,7 @@ export type OperationLogUncheckedUpdateWithoutUserInput = {
 
 export type OperationLogUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   action?: Prisma.StringFieldUpdateOperationsInput | string
   targetType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   targetId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -604,6 +639,7 @@ export type OperationLogUncheckedUpdateManyWithoutUserInput = {
 
 export type OperationLogSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   userId?: boolean
   action?: boolean
   targetType?: boolean
@@ -619,6 +655,7 @@ export type OperationLogSelect<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type OperationLogSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   userId?: boolean
   action?: boolean
   targetType?: boolean
@@ -629,7 +666,7 @@ export type OperationLogSelectScalar = {
   createdAt?: boolean
 }
 
-export type OperationLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "action" | "targetType" | "targetId" | "payload" | "ip" | "userAgent" | "createdAt", ExtArgs["result"]["operationLog"]>
+export type OperationLogOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "userId" | "action" | "targetType" | "targetId" | "payload" | "ip" | "userAgent" | "createdAt", ExtArgs["result"]["operationLog"]>
 export type OperationLogInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.OperationLog$userArgs<ExtArgs>
 }
@@ -647,6 +684,10 @@ export type $OperationLogPayload<ExtArgs extends runtime.Types.Extensions.Intern
      * 日志ID
      */
     id: number
+    /**
+     * 租户ID
+     */
+    tenantId: number
     /**
      * 用户ID
      */
@@ -1050,6 +1091,7 @@ export interface Prisma__OperationLogClient<T, Null = never, ExtArgs extends run
  */
 export interface OperationLogFieldRefs {
   readonly id: Prisma.FieldRef<"OperationLog", 'Int'>
+  readonly tenantId: Prisma.FieldRef<"OperationLog", 'Int'>
   readonly userId: Prisma.FieldRef<"OperationLog", 'Int'>
   readonly action: Prisma.FieldRef<"OperationLog", 'String'>
   readonly targetType: Prisma.FieldRef<"OperationLog", 'String'>

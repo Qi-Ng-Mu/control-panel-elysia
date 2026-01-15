@@ -24,7 +24,6 @@ const parseBoolean = (key: string): boolean => {
 export const env = {
   port: parseNumber("PORT"),
   nodeEnv: requireEnv("NODE_ENV"),
-  databaseUrl: requireEnv("DATABASE_URL"),
   jwtSecret: requireEnv("JWT_SECRET"),
   refreshTokenSecret: requireEnv("REFRESH_TOKEN_SECRET"),
   accessTokenTtl: requireEnv("ACCESS_TOKEN_TTL"),
@@ -32,7 +31,11 @@ export const env = {
   redisUrl: requireEnv("REDIS_URL"),
   cacheTtlSeconds: parseNumber("CACHE_TTL_SECONDS"),
   cacheKeyPrefix: requireEnv("CACHE_KEY_PREFIX"),
-  corsOrigin: requireEnv("CORS_ORIGIN"),
+  corsOrigin: requireEnv("CORS_ORIGIN")
+    .split(",")
+    .map((item) => item.trim())
+    .filter((item) => item.length > 0),
+
   cookieSecure: parseBoolean("COOKIE_SECURE"),
   cookieSameSite: requireEnv("COOKIE_SAMESITE")
 };

@@ -28,6 +28,7 @@ export type AggregateSystemConfig = {
 
 export type SystemConfigAvgAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -35,6 +36,7 @@ export type SystemConfigAvgAggregateOutputType = {
 
 export type SystemConfigSumAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   createdBy: number | null
   updatedBy: number | null
   deletedBy: number | null
@@ -42,6 +44,7 @@ export type SystemConfigSumAggregateOutputType = {
 
 export type SystemConfigMinAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   key: string | null
   description: string | null
   isPublic: boolean | null
@@ -55,6 +58,7 @@ export type SystemConfigMinAggregateOutputType = {
 
 export type SystemConfigMaxAggregateOutputType = {
   id: number | null
+  tenantId: number | null
   key: string | null
   description: string | null
   isPublic: boolean | null
@@ -68,6 +72,7 @@ export type SystemConfigMaxAggregateOutputType = {
 
 export type SystemConfigCountAggregateOutputType = {
   id: number
+  tenantId: number
   key: number
   value: number
   description: number
@@ -84,6 +89,7 @@ export type SystemConfigCountAggregateOutputType = {
 
 export type SystemConfigAvgAggregateInputType = {
   id?: true
+  tenantId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -91,6 +97,7 @@ export type SystemConfigAvgAggregateInputType = {
 
 export type SystemConfigSumAggregateInputType = {
   id?: true
+  tenantId?: true
   createdBy?: true
   updatedBy?: true
   deletedBy?: true
@@ -98,6 +105,7 @@ export type SystemConfigSumAggregateInputType = {
 
 export type SystemConfigMinAggregateInputType = {
   id?: true
+  tenantId?: true
   key?: true
   description?: true
   isPublic?: true
@@ -111,6 +119,7 @@ export type SystemConfigMinAggregateInputType = {
 
 export type SystemConfigMaxAggregateInputType = {
   id?: true
+  tenantId?: true
   key?: true
   description?: true
   isPublic?: true
@@ -124,6 +133,7 @@ export type SystemConfigMaxAggregateInputType = {
 
 export type SystemConfigCountAggregateInputType = {
   id?: true
+  tenantId?: true
   key?: true
   value?: true
   description?: true
@@ -225,6 +235,7 @@ export type SystemConfigGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 
 export type SystemConfigGroupByOutputType = {
   id: number
+  tenantId: number
   key: string
   value: runtime.JsonValue
   description: string | null
@@ -262,6 +273,7 @@ export type SystemConfigWhereInput = {
   OR?: Prisma.SystemConfigWhereInput[]
   NOT?: Prisma.SystemConfigWhereInput | Prisma.SystemConfigWhereInput[]
   id?: Prisma.IntFilter<"SystemConfig"> | number
+  tenantId?: Prisma.IntFilter<"SystemConfig"> | number
   key?: Prisma.StringFilter<"SystemConfig"> | string
   value?: Prisma.JsonFilter<"SystemConfig">
   description?: Prisma.StringNullableFilter<"SystemConfig"> | string | null
@@ -276,6 +288,7 @@ export type SystemConfigWhereInput = {
 
 export type SystemConfigOrderByWithRelationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   key?: Prisma.SortOrder
   value?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -291,10 +304,11 @@ export type SystemConfigOrderByWithRelationInput = {
 
 export type SystemConfigWhereUniqueInput = Prisma.AtLeast<{
   id?: number
-  key_deletedAt?: Prisma.SystemConfigKeyDeletedAtCompoundUniqueInput
+  tenantId_key_deletedAt?: Prisma.SystemConfigTenantIdKeyDeletedAtCompoundUniqueInput
   AND?: Prisma.SystemConfigWhereInput | Prisma.SystemConfigWhereInput[]
   OR?: Prisma.SystemConfigWhereInput[]
   NOT?: Prisma.SystemConfigWhereInput | Prisma.SystemConfigWhereInput[]
+  tenantId?: Prisma.IntFilter<"SystemConfig"> | number
   key?: Prisma.StringFilter<"SystemConfig"> | string
   value?: Prisma.JsonFilter<"SystemConfig">
   description?: Prisma.StringNullableFilter<"SystemConfig"> | string | null
@@ -305,10 +319,11 @@ export type SystemConfigWhereUniqueInput = Prisma.AtLeast<{
   updatedBy?: Prisma.IntNullableFilter<"SystemConfig"> | number | null
   deletedAt?: Prisma.DateTimeNullableFilter<"SystemConfig"> | Date | string | null
   deletedBy?: Prisma.IntNullableFilter<"SystemConfig"> | number | null
-}, "id" | "key_deletedAt">
+}, "id" | "tenantId_key_deletedAt">
 
 export type SystemConfigOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   key?: Prisma.SortOrder
   value?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -331,6 +346,7 @@ export type SystemConfigScalarWhereWithAggregatesInput = {
   OR?: Prisma.SystemConfigScalarWhereWithAggregatesInput[]
   NOT?: Prisma.SystemConfigScalarWhereWithAggregatesInput | Prisma.SystemConfigScalarWhereWithAggregatesInput[]
   id?: Prisma.IntWithAggregatesFilter<"SystemConfig"> | number
+  tenantId?: Prisma.IntWithAggregatesFilter<"SystemConfig"> | number
   key?: Prisma.StringWithAggregatesFilter<"SystemConfig"> | string
   value?: Prisma.JsonWithAggregatesFilter<"SystemConfig">
   description?: Prisma.StringNullableWithAggregatesFilter<"SystemConfig"> | string | null
@@ -344,6 +360,7 @@ export type SystemConfigScalarWhereWithAggregatesInput = {
 }
 
 export type SystemConfigCreateInput = {
+  tenantId: number
   key: string
   value: Prisma.JsonNullValueInput | runtime.InputJsonValue
   description?: string | null
@@ -358,6 +375,7 @@ export type SystemConfigCreateInput = {
 
 export type SystemConfigUncheckedCreateInput = {
   id?: number
+  tenantId: number
   key: string
   value: Prisma.JsonNullValueInput | runtime.InputJsonValue
   description?: string | null
@@ -371,6 +389,7 @@ export type SystemConfigUncheckedCreateInput = {
 }
 
 export type SystemConfigUpdateInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -385,6 +404,7 @@ export type SystemConfigUpdateInput = {
 
 export type SystemConfigUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -399,6 +419,7 @@ export type SystemConfigUncheckedUpdateInput = {
 
 export type SystemConfigCreateManyInput = {
   id?: number
+  tenantId: number
   key: string
   value: Prisma.JsonNullValueInput | runtime.InputJsonValue
   description?: string | null
@@ -412,6 +433,7 @@ export type SystemConfigCreateManyInput = {
 }
 
 export type SystemConfigUpdateManyMutationInput = {
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -426,6 +448,7 @@ export type SystemConfigUpdateManyMutationInput = {
 
 export type SystemConfigUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
+  tenantId?: Prisma.IntFieldUpdateOperationsInput | number
   key?: Prisma.StringFieldUpdateOperationsInput | string
   value?: Prisma.JsonNullValueInput | runtime.InputJsonValue
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -444,13 +467,15 @@ export type SystemConfigOrderByRelevanceInput = {
   search: string
 }
 
-export type SystemConfigKeyDeletedAtCompoundUniqueInput = {
+export type SystemConfigTenantIdKeyDeletedAtCompoundUniqueInput = {
+  tenantId: number
   key: string
   deletedAt: Date | string
 }
 
 export type SystemConfigCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   key?: Prisma.SortOrder
   value?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -465,6 +490,7 @@ export type SystemConfigCountOrderByAggregateInput = {
 
 export type SystemConfigAvgOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
@@ -472,6 +498,7 @@ export type SystemConfigAvgOrderByAggregateInput = {
 
 export type SystemConfigMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   key?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
@@ -485,6 +512,7 @@ export type SystemConfigMaxOrderByAggregateInput = {
 
 export type SystemConfigMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   key?: Prisma.SortOrder
   description?: Prisma.SortOrder
   isPublic?: Prisma.SortOrder
@@ -498,6 +526,7 @@ export type SystemConfigMinOrderByAggregateInput = {
 
 export type SystemConfigSumOrderByAggregateInput = {
   id?: Prisma.SortOrder
+  tenantId?: Prisma.SortOrder
   createdBy?: Prisma.SortOrder
   updatedBy?: Prisma.SortOrder
   deletedBy?: Prisma.SortOrder
@@ -507,6 +536,7 @@ export type SystemConfigSumOrderByAggregateInput = {
 
 export type SystemConfigSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
+  tenantId?: boolean
   key?: boolean
   value?: boolean
   description?: boolean
@@ -523,6 +553,7 @@ export type SystemConfigSelect<ExtArgs extends runtime.Types.Extensions.Internal
 
 export type SystemConfigSelectScalar = {
   id?: boolean
+  tenantId?: boolean
   key?: boolean
   value?: boolean
   description?: boolean
@@ -535,7 +566,7 @@ export type SystemConfigSelectScalar = {
   deletedBy?: boolean
 }
 
-export type SystemConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "key" | "value" | "description" | "isPublic" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["systemConfig"]>
+export type SystemConfigOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "tenantId" | "key" | "value" | "description" | "isPublic" | "createdAt" | "updatedAt" | "createdBy" | "updatedBy" | "deletedAt" | "deletedBy", ExtArgs["result"]["systemConfig"]>
 
 export type $SystemConfigPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SystemConfig"
@@ -545,6 +576,10 @@ export type $SystemConfigPayload<ExtArgs extends runtime.Types.Extensions.Intern
      * 配置ID
      */
     id: number
+    /**
+     * 租户ID
+     */
+    tenantId: number
     /**
      * 配置键
      */
@@ -955,6 +990,7 @@ export interface Prisma__SystemConfigClient<T, Null = never, ExtArgs extends run
  */
 export interface SystemConfigFieldRefs {
   readonly id: Prisma.FieldRef<"SystemConfig", 'Int'>
+  readonly tenantId: Prisma.FieldRef<"SystemConfig", 'Int'>
   readonly key: Prisma.FieldRef<"SystemConfig", 'String'>
   readonly value: Prisma.FieldRef<"SystemConfig", 'Json'>
   readonly description: Prisma.FieldRef<"SystemConfig", 'String'>

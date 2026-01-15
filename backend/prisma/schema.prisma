@@ -7,20 +7,187 @@ datasource db {
   provider = "mysql"
 }
 
+/// 租户表
+model Tenant {
+  /// 租户ID
+  id        Int      @id @default(autoincrement())
+  /// 租户名称
+  name      String   @db.VarChar(191)
+  /// 租户编码
+  code      String   @db.VarChar(191)
+  /// 是否启用
+  isActive  Boolean  @default(true) @map("is_active")
+  /// 过期时间
+  expiresAt DateTime? @db.Timestamp(3) @map("expires_at")
+  /// 创建时间
+  createdAt DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy Int? @map("created_by")
+  /// 更新人
+  updatedBy Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt DateTime? @db.Timestamp(3) @map("deleted_at")
+  /// 删除人
+  deletedBy Int? @map("deleted_by")
+
+  /// 租户用户
+  users      User[]
+  /// 部门
+  departments Department[]
+  /// 岗位
+  positions  Position[]
+  /// 角色
+  roles      Role[]
+  /// 权限
+  permissions Permission[]
+  /// 菜单
+  menus      Menu[]
+  /// 字典组
+  dictionaryGroups DictionaryGroup[]
+  /// 通知模板
+  noticeTemplates NoticeTemplate[]
+  /// 通知
+  notices    Notice[]
+  /// 工单流程
+  ticketFlows TicketFlow[]
+  /// 工单
+  tickets    Ticket[]
+
+  @@unique([code, deletedAt])
+  @@unique([name, deletedAt])
+  @@map("tenant")
+}
+
+/// 部门表
+model Department {
+  /// 部门ID
+  id        Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId  Int @map("tenant_id")
+  /// 部门名称
+  name      String
+  /// 部门编码
+  code      String?
+  /// 排序
+  order     Int      @default(0)
+  /// 是否启用
+  isActive  Boolean  @default(true) @map("is_active")
+  /// 父级部门ID
+  parentId  Int? @map("parent_id")
+  /// 创建时间
+  createdAt DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy Int? @map("created_by")
+  /// 更新人
+  updatedBy Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt DateTime? @db.Timestamp(3) @map("deleted_at")
+  /// 删除人
+  deletedBy Int? @map("deleted_by")
+
+  /// 租户
+  tenant   Tenant @relation(fields: [tenantId], references: [id])
+  /// 父部门
+  parent   Department? @relation("DepartmentToParent", fields: [parentId], references: [id])
+  /// 子部门
+  children Department[] @relation("DepartmentToParent")
+  /// 用户
+  users    User[]
+
+  @@unique([tenantId, code, deletedAt])
+  @@unique([tenantId, name, deletedAt])
+  @@index([tenantId])
+  @@index([parentId])
+  @@map("department")
+}
+
+/// 岗位表
+model Position {
+  /// 岗位ID
+  id        Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId  Int @map("tenant_id")
+  /// 岗位名称
+  name      String
+  /// 岗位编码
+  code      String?
+  /// 岗位描述
+  description String?
+  /// 是否启用
+  isActive  Boolean  @default(true) @map("is_active")
+  /// 创建时间
+  createdAt DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy Int? @map("created_by")
+  /// 更新人
+  updatedBy Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt DateTime? @db.Timestamp(3) @map("deleted_at")
+  /// 删除人
+  deletedBy Int? @map("deleted_by")
+
+  /// 租户
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  /// 用户岗位关联
+  users UserPosition[]
+
+  @@unique([tenantId, code, deletedAt])
+  @@unique([tenantId, name, deletedAt])
+  @@index([tenantId])
+  @@map("position")
+}
+
+/// 用户岗位关联表
+model UserPosition {
+  /// 关联ID
+  id         Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId   Int @map("tenant_id")
+  /// 用户ID
+  userId     Int @map("user_id")
+  /// 岗位ID
+  positionId Int @map("position_id")
+  /// 创建时间
+  createdAt  DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 创建人
+  createdBy  Int? @map("created_by")
+
+  /// 用户
+  user     User @relation(fields: [userId], references: [id])
+  /// 岗位
+  position Position @relation(fields: [positionId], references: [id])
+
+  @@unique([tenantId, userId, positionId])
+  @@index([tenantId])
+  @@index([userId])
+  @@index([positionId])
+  @@map("user_position")
+}
+
 /// 用户表
 model User {
   /// 用户ID
   id              Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId        Int @map("tenant_id")
   /// 用户名
   username        String   @db.VarChar(191)
   /// 邮箱
-  email           String?  
+  email           String?
   /// 密码哈希
   passwordHash    String @map("password_hash")
   /// 显示名称
   displayName     String? @map("display_name")
   /// 头像文件ID
   avatarFileId    Int? @map("avatar_file_id")
+  /// 部门ID
+  departmentId    Int? @map("department_id")
   /// 是否启用
   isActive        Boolean  @default(true) @map("is_active")
   /// 最后登录时间
@@ -38,6 +205,12 @@ model User {
   /// 删除人
   deletedBy       Int? @map("deleted_by")
 
+  /// 租户
+  tenant          Tenant @relation(fields: [tenantId], references: [id])
+  /// 部门
+  department      Department? @relation(fields: [departmentId], references: [id])
+  /// 用户岗位
+  positions       UserPosition[]
   /// 用户角色关联
   roles           UserRole[]
   /// 登录会话
@@ -48,8 +221,11 @@ model User {
   terminalSessions TerminalSession[]
   /// 头像文件
   avatarFile      FileAsset? @relation(fields: [avatarFileId], references: [id])
-  @@unique([username, deletedAt])
-  @@unique([email, deletedAt])
+
+  @@unique([tenantId, username, deletedAt])
+  @@unique([tenantId, email, deletedAt])
+  @@index([tenantId])
+  @@index([departmentId])
   @@map("user")
 }
 
@@ -57,12 +233,18 @@ model User {
 model Role {
   /// 角色ID
   id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
   /// 角色名称
   name        String
   /// 角色编码
-  code        String   
+  code        String
   /// 角色描述
   description String?
+  /// 数据范围类型
+  dataScopeType String @default("ALL") @map("data_scope_type")
+  /// 自定义数据范围(部门ID列表)
+  dataScopeDepartmentIds Json? @map("data_scope_department_ids")
   /// 是否启用
   isActive    Boolean  @default(true) @map("is_active")
   /// 创建时间
@@ -78,13 +260,16 @@ model Role {
   /// 删除人
   deletedBy   Int? @map("deleted_by")
 
+  /// 租户
+  tenant      Tenant @relation(fields: [tenantId], references: [id])
   /// 用户角色关联
   users       UserRole[]
   /// 角色权限关联
   permissions RolePermission[]
 
-  @@unique([code, deletedAt])
-  @@unique([name, deletedAt])
+  @@unique([tenantId, code, deletedAt])
+  @@unique([tenantId, name, deletedAt])
+  @@index([tenantId])
   @@map("role")
 }
 
@@ -92,10 +277,12 @@ model Role {
 model Permission {
   /// 权限ID
   id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
   /// 权限名称
   name        String
   /// 权限编码
-  code        String   
+  code        String
   /// 权限描述
   description String?
   /// 创建时间
@@ -111,13 +298,16 @@ model Permission {
   /// 删除人
   deletedBy   Int? @map("deleted_by")
 
+  /// 租户
+  tenant Tenant @relation(fields: [tenantId], references: [id])
   /// 角色权限关联
   roles RolePermission[]
   /// 菜单关联
   menus Menu[]
 
-  @@unique([code, deletedAt])
-  @@unique([name, deletedAt])
+  @@unique([tenantId, code, deletedAt])
+  @@unique([tenantId, name, deletedAt])
+  @@index([tenantId])
   @@map("permission")
 }
 
@@ -125,6 +315,8 @@ model Permission {
 model UserRole {
   /// 关联ID
   id        Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId  Int @map("tenant_id")
   /// 用户ID
   userId    Int @map("user_id")
   /// 角色ID
@@ -139,7 +331,8 @@ model UserRole {
   /// 角色
   role Role @relation(fields: [roleId], references: [id])
 
-  @@unique([userId, roleId])
+  @@unique([tenantId, userId, roleId])
+  @@index([tenantId])
   @@map("user_role")
 }
 
@@ -147,6 +340,8 @@ model UserRole {
 model RolePermission {
   /// 关联ID
   id           Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId     Int @map("tenant_id")
   /// 角色ID
   roleId       Int @map("role_id")
   /// 权限ID
@@ -161,7 +356,8 @@ model RolePermission {
   /// 权限
   permission Permission @relation(fields: [permissionId], references: [id])
 
-  @@unique([roleId, permissionId])
+  @@unique([tenantId, roleId, permissionId])
+  @@index([tenantId])
   @@map("role_permission")
 }
 
@@ -169,6 +365,8 @@ model RolePermission {
 model Menu {
   /// 菜单ID
   id           Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId     Int @map("tenant_id")
   /// 菜单名称
   name         String
   /// 路由路径
@@ -202,6 +400,8 @@ model Menu {
   /// 删除人
   deletedBy    Int? @map("deleted_by")
 
+  /// 租户
+  tenant      Tenant      @relation(fields: [tenantId], references: [id])
   /// 父菜单
   parent      Menu?       @relation("MenuToParent", fields: [parentId], references: [id])
   /// 子菜单
@@ -209,7 +409,8 @@ model Menu {
   /// 权限
   permission  Permission? @relation(fields: [permissionId], references: [id])
 
-  @@unique([path, deletedAt])
+  @@unique([tenantId, path, deletedAt])
+  @@index([tenantId])
   @@index([parentId])
   @@index([permissionId])
   @@map("menu")
@@ -219,6 +420,8 @@ model Menu {
 model FileAsset {
   /// 文件ID
   id           Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId     Int @map("tenant_id")
   /// 存储类型(local/oss)
   storageType  String @map("storage_type")
   /// 原始文件名
@@ -226,7 +429,7 @@ model FileAsset {
   /// 文件类型
   mimeType     String @map("mime_type")
   /// 文件哈希
-  hash         String   
+  hash         String
   /// 文件路径
   path         String
   /// 文件大小(字节)
@@ -246,7 +449,9 @@ model FileAsset {
 
   /// 关联用户(头像)
   users User[]
-  @@unique([hash, deletedAt])
+
+  @@unique([tenantId, hash, deletedAt])
+  @@index([tenantId])
   @@map("file_asset")
 }
 
@@ -254,8 +459,10 @@ model FileAsset {
 model SystemConfig {
   /// 配置ID
   id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
   /// 配置键
-  key         String   
+  key         String
   /// 配置值
   value       Json
   /// 配置说明
@@ -274,7 +481,9 @@ model SystemConfig {
   deletedAt   DateTime? @db.Timestamp(3) @map("deleted_at")
   /// 删除人
   deletedBy   Int? @map("deleted_by")
-  @@unique([key, deletedAt])
+
+  @@unique([tenantId, key, deletedAt])
+  @@index([tenantId])
   @@map("system_config")
 }
 
@@ -282,6 +491,8 @@ model SystemConfig {
 model Session {
   /// 会话ID
   id               Int       @id @default(autoincrement())
+  /// 租户ID
+  tenantId         Int @map("tenant_id")
   /// 用户ID
   userId           Int @map("user_id")
   /// Refresh Token 哈希
@@ -303,6 +514,8 @@ model Session {
 
   /// 用户
   user User @relation(fields: [userId], references: [id])
+  @@index([tenantId])
+  @@index([userId])
   @@map("session")
 }
 
@@ -310,6 +523,8 @@ model Session {
 model TerminalSession {
   /// 记录ID
   id        Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId  Int @map("tenant_id")
   /// 用户ID
   userId    Int @map("user_id")
   /// 会话名称
@@ -336,7 +551,8 @@ model TerminalSession {
   /// 用户
   user User @relation(fields: [userId], references: [id])
 
-  @@unique([sessionId, deletedAt])
+  @@unique([tenantId, sessionId, deletedAt])
+  @@index([tenantId])
   @@index([userId])
   @@map("terminal_session")
 }
@@ -345,6 +561,8 @@ model TerminalSession {
 model OperationLog {
   /// 日志ID
   id         Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId   Int @map("tenant_id")
   /// 用户ID
   userId     Int? @map("user_id")
   /// 操作名称
@@ -364,5 +582,382 @@ model OperationLog {
 
   /// 用户
   user User? @relation(fields: [userId], references: [id])
+  @@index([tenantId])
+  @@index([userId])
   @@map("operation_log")
+}
+
+/// 字典组表
+model DictionaryGroup {
+  /// 字典组ID
+  id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
+  /// 字典组名称
+  name        String
+  /// 字典组编码
+  code        String
+  /// 字典组描述
+  description String?
+  /// 排序
+  order       Int      @default(0)
+  /// 是否启用
+  isActive    Boolean  @default(true) @map("is_active")
+  /// 创建时间
+  createdAt   DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt   DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy   Int? @map("created_by")
+  /// 更新人
+  updatedBy   Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt   DateTime? @db.Timestamp(3) @map("deleted_at")
+  /// 删除人
+  deletedBy   Int? @map("deleted_by")
+
+  /// 租户
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  /// 字典项
+  items  DictionaryItem[]
+
+  @@unique([tenantId, code, deletedAt])
+  @@unique([tenantId, name, deletedAt])
+  @@index([tenantId])
+  @@map("dictionary_group")
+}
+
+/// 字典项表
+model DictionaryItem {
+  /// 字典项ID
+  id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
+  /// 字典组ID
+  groupId     Int @map("group_id")
+  /// 字典项名称
+  label       String
+  /// 字典项值
+  value       String
+  /// 排序
+  order       Int      @default(0)
+  /// 是否启用
+  isActive    Boolean  @default(true) @map("is_active")
+  /// 字典项描述
+  description String?
+  /// 创建时间
+  createdAt   DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt   DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy   Int? @map("created_by")
+  /// 更新人
+  updatedBy   Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt   DateTime? @db.Timestamp(3) @map("deleted_at")
+  /// 删除人
+  deletedBy   Int? @map("deleted_by")
+
+  /// 字典组
+  group DictionaryGroup @relation(fields: [groupId], references: [id])
+
+  @@unique([tenantId, groupId, value, deletedAt])
+  @@index([tenantId])
+  @@index([groupId])
+  @@map("dictionary_item")
+}
+
+/// 通知模板表
+model NoticeTemplate {
+  /// 模板ID
+  id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
+  /// 模板名称
+  name        String
+  /// 模板编码
+  code        String
+  /// 模板内容
+  content     Json
+  /// 模板描述
+  description String?
+  /// 是否启用
+  isActive    Boolean  @default(true) @map("is_active")
+  /// 创建时间
+  createdAt   DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt   DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy   Int? @map("created_by")
+  /// 更新人
+  updatedBy   Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt   DateTime? @db.Timestamp(3) @map("deleted_at")
+  /// 删除人
+  deletedBy   Int? @map("deleted_by")
+
+  /// 租户
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  /// 通知
+  notices Notice[]
+
+  @@unique([tenantId, code, deletedAt])
+  @@unique([tenantId, name, deletedAt])
+  @@index([tenantId])
+  @@map("notice_template")
+}
+
+/// 通知表
+model Notice {
+  /// 通知ID
+  id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
+  /// 模板ID
+  templateId  Int? @map("template_id")
+  /// 通知标题
+  title       String
+  /// 通知内容
+  content     Json
+  /// 状态
+  status      String   @default("DRAFT")
+  /// 发布时间
+  publishedAt DateTime? @db.Timestamp(3) @map("published_at")
+  /// 创建时间
+  createdAt   DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt   DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy   Int? @map("created_by")
+  /// 更新人
+  updatedBy   Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt   DateTime? @db.Timestamp(3) @map("deleted_at")
+  /// 删除人
+  deletedBy   Int? @map("deleted_by")
+
+  /// 模板
+  template NoticeTemplate? @relation(fields: [templateId], references: [id])
+  /// 租户
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+
+  @@index([tenantId])
+  @@index([templateId])
+  @@map("notice")
+}
+
+/// 工单表
+model Ticket {
+  /// 工单ID
+  id           Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId     Int @map("tenant_id")
+  /// 工单标题
+  title        String
+  /// 工单描述
+  description  String?
+  /// 工单状态
+  status       String   @default("OPEN")
+  /// 流程ID
+  flowId       Int? @map("flow_id")
+  /// 当前节点ID
+  currentNodeId Int? @map("current_node_id")
+  /// 发起人ID
+  requesterId  Int? @map("requester_id")
+  /// 创建时间
+  createdAt    DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt    DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy    Int? @map("created_by")
+  /// 更新人
+  updatedBy    Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt    DateTime? @db.Timestamp(3) @map("deleted_at")
+  /// 删除人
+  deletedBy    Int? @map("deleted_by")
+
+  /// 租户
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  /// 流程
+  flow   TicketFlow? @relation(fields: [flowId], references: [id])
+  /// 流程实例
+  flowInstance TicketFlowInstance?
+
+  @@index([tenantId])
+  @@index([flowId])
+  @@map("ticket")
+}
+
+/// 工单流程表
+model TicketFlow {
+  /// 流程ID
+  id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
+  /// 流程名称
+  name        String
+  /// 流程描述
+  description String?
+  /// 是否启用
+  isActive    Boolean  @default(true) @map("is_active")
+  /// 创建时间
+  createdAt   DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt   DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy   Int? @map("created_by")
+  /// 更新人
+  updatedBy   Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt   DateTime? @db.Timestamp(3) @map("deleted_at")
+  /// 删除人
+  deletedBy   Int? @map("deleted_by")
+
+  /// 租户
+  tenant Tenant @relation(fields: [tenantId], references: [id])
+  /// 流程节点
+  nodes TicketFlowNode[]
+  /// 流程条件
+  conditions TicketFlowCondition[]
+  /// 工单
+  tickets Ticket[]
+  /// 流程实例
+  instances TicketFlowInstance[]
+
+  @@unique([tenantId, name, deletedAt])
+  @@index([tenantId])
+  @@map("ticket_flow")
+}
+
+/// 工单流程节点表
+model TicketFlowNode {
+  /// 节点ID
+  id        Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId  Int @map("tenant_id")
+  /// 流程ID
+  flowId    Int @map("flow_id")
+  /// 节点名称
+  name      String
+  /// 节点类型
+  type      String
+  /// 排序
+  order     Int      @default(0)
+  /// 是否开始节点
+  isStart   Boolean  @default(false) @map("is_start")
+  /// 是否结束节点
+  isEnd     Boolean  @default(false) @map("is_end")
+  /// 创建时间
+  createdAt DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 更新时间
+  updatedAt DateTime @db.Timestamp(3) @updatedAt @map("updated_at")
+  /// 创建人
+  createdBy Int? @map("created_by")
+  /// 更新人
+  updatedBy Int? @map("updated_by")
+  /// 删除时间(软删除)
+  deletedAt DateTime? @db.Timestamp(3) @map("deleted_at")
+  /// 删除人
+  deletedBy Int? @map("deleted_by")
+
+  /// 流程
+  flow TicketFlow @relation(fields: [flowId], references: [id])
+  /// 流程实例
+  instances TicketFlowInstance[]
+
+  @@index([tenantId])
+  @@index([flowId])
+  @@map("ticket_flow_node")
+}
+
+/// 工单流程条件表
+model TicketFlowCondition {
+  /// 条件ID
+  id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
+  /// 流程ID
+  flowId      Int @map("flow_id")
+  /// 来源节点ID
+  sourceNodeId Int @map("source_node_id")
+  /// 目标节点ID
+  targetNodeId Int @map("target_node_id")
+  /// 条件表达式
+  expression  Json @map("expression")
+  /// 创建时间
+  createdAt   DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 创建人
+  createdBy   Int? @map("created_by")
+
+  /// 流程
+  flow TicketFlow @relation(fields: [flowId], references: [id])
+
+  @@index([tenantId])
+  @@index([flowId])
+  @@index([sourceNodeId])
+  @@index([targetNodeId])
+  @@map("ticket_flow_condition")
+}
+
+/// 工单流程实例表
+model TicketFlowInstance {
+  /// 实例ID
+  id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
+  /// 工单ID
+  ticketId    Int @unique @map("ticket_id")
+  /// 流程ID
+  flowId      Int @map("flow_id")
+  /// 当前节点ID
+  currentNodeId Int? @map("current_node_id")
+  /// 状态
+  status      String   @default("RUNNING")
+  /// 开始时间
+  startedAt   DateTime @db.Timestamp(3) @default(now()) @map("started_at")
+  /// 结束时间
+  endedAt     DateTime? @db.Timestamp(3) @map("ended_at")
+
+  /// 工单
+  ticket Ticket @relation(fields: [ticketId], references: [id])
+  /// 流程
+  flow   TicketFlow @relation(fields: [flowId], references: [id])
+  /// 当前节点
+  currentNode TicketFlowNode? @relation(fields: [currentNodeId], references: [id])
+  /// 历史记录
+  histories TicketFlowInstanceHistory[]
+
+  @@index([tenantId])
+  @@index([flowId])
+  @@map("ticket_flow_instance")
+}
+
+/// 工单流程实例历史表
+model TicketFlowInstanceHistory {
+  /// 历史ID
+  id          Int      @id @default(autoincrement())
+  /// 租户ID
+  tenantId    Int @map("tenant_id")
+  /// 实例ID
+  instanceId  Int @map("instance_id")
+  /// 来源节点ID
+  fromNodeId  Int? @map("from_node_id")
+  /// 目标节点ID
+  toNodeId    Int? @map("to_node_id")
+  /// 操作动作
+  action      String
+  /// 操作内容
+  payload     Json?
+  /// 创建时间
+  createdAt   DateTime @db.Timestamp(3) @default(now()) @map("created_at")
+  /// 创建人
+  createdBy   Int? @map("created_by")
+
+  /// 实例
+  instance TicketFlowInstance @relation(fields: [instanceId], references: [id])
+
+  @@index([tenantId])
+  @@index([instanceId])
+  @@map("ticket_flow_instance_history")
 }
